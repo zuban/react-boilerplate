@@ -16,19 +16,60 @@
  */
 
 import {
-  CHANGE_USERNAME,
-} from './constants';
+  GET_TAGS,
+  SET_TEXT,
+  SET_TAGS,
+  ADD_TAG,
+
+  GET_SVG
+} from './constants'
 
 /**
  * Changes the input field of the form
  *
- * @param  {name} name The new text of the input field
+ * @return {object}    An action object with a type of CHANGE_USERNAME
+ * @param tags
+ */
+export const getTags = (tags = '') => ({
+  type: GET_TAGS,
+  tags,
+})
+/**
+ * Changes the input field of the form
  *
  * @return {object}    An action object with a type of CHANGE_USERNAME
+ * @param tags
  */
-export function changeUsername(name) {
-  return {
-    type: CHANGE_USERNAME,
-    name,
-  };
-}
+export const setTags = (tags) => ({
+  type: SET_TAGS,
+  tags,
+})
+/**
+ * Changes the input field of the form
+ *
+ * @return {object}    An action object with a type of CHANGE_USERNAME
+ * @param tags
+ */
+export const setText = (text) => ({
+  type: SET_TEXT,
+  text,
+})
+/**
+ * Changes the input field of the form
+ *
+ * @return {object}    An action object with a type of CHANGE_USERNAME
+ * @param tags
+ */
+export const addTag = (tag) => ({
+  type: ADD_TAG,
+  tag,
+})
+/**
+ * Changes the input field of the form
+ *
+ * @return {object}    An action object with a type of CHANGE_USERNAME
+ * @param tags
+ */
+export const getSVG = () => ({
+  type: GET_SVG,
+})

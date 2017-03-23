@@ -10,8 +10,15 @@ import createReducer from './reducers';
 import createLogger from 'redux-logger'
 const sagaMiddleware = createSagaMiddleware();
 
+import { Iterable } from 'immutable'
+
+const stateTransformer = (state) => {
+  if (Iterable.isIterable(state)) return state.toJS()
+  else return state
+}
+
 const Logger = createLogger({
-  predicate: () => process.env.NODE_ENV !== 'production'
+  stateTransformer
 })
 export default function configureStore(initialState = {}, history) {
   // Create the store with two middlewares

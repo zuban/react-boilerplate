@@ -1,47 +1,60 @@
-/**
- * Gets the repositories of the user from Github
- */
+import { take, call, put, select, takeLatest } from 'redux-saga/effects'
+import {
+  GET_TAGS,
+  GET_TAGS_SUCCESS,
+  GET_TAGS_ERROR,
 
-import { take, call, put, select, cancel, takeLatest } from 'redux-saga/effects';
-// import { LOCATION_CHANGE } from 'react-router-redux';
-// import { LOAD_REPOS } from 'containers/App/constants';
-// import { reposLoaded, repoLoadingError } from 'containers/App/actions';
+  GET_SVG,
+  GET_SVG_SUCCESS,
+  GET_SVG_ERROR
+} from './constants'
 
-// import request from 'utils/request';
-// import { makeSelectUsername } from 'containers/HomePage/selectors';
+import { getService } from '../../service/Service'
+const service = new getService()
 
-/**
- * Github repos request/response handler
- */
-export function* getRepos() {
-  // Select username from store
-  const username = yield select(makeSelectUsername());
-  const requestURL = `https://api.github.com/users/${username}/repos?type=all&sort=updated`;
+export function* tagsSaga () {
+  const watcher = yield takeLatest(GET_TAGS, getTags)
+  yield take(GET_TAGS)
+}
 
+export function* svgSaga () {
+  const watcher = yield takeLatest(GET_SVG, getSVG)
+  yield take(GET_SVG)
+}
+
+function* getSVG (action) {
   try {
-    // Call our request helper (see 'utils/request')
-    const repos = yield call(request, requestURL);
-    yield put(reposLoaded(repos, username));
-  } catch (err) {
-    yield put(repoLoadingError(err));
+    const svg = yield call(service.getSVGByTagValue.bind(service), '', '')
+
+    yield put({
+      type: GET_SVG_SUCCESS,
+      svg,
+    })
+
+  }
+  catch (error) {
+    yield put({type: GET_SVG_ERROR, error: error.message})
   }
 }
 
-/**
- * Root saga manages watcher lifecycle
- */
-export function* githubData() {
-  // Watches for LOAD_REPOS actions and calls getRepos when one comes in.
-  // By using `takeLatest` only the result of the latest API call is applied.
-  // It returns task descriptor (just like fork) so we can continue execution
-  const watcher = yield takeLatest(LOAD_REPOS, getRepos);
+function* getTags (action) {
+  try {
+    const tags = yield call(service.getTags.bind(service),
+      action.tags,
+    )
+    yield put({
+      type: GET_TAGS_SUCCESS,
+      tags,
+    })
 
-  // Suspend execution until location changes
-  yield take(LOCATION_CHANGE);
-  yield cancel(watcher);
+  }
+  catch (error) {
+    yield put({type: GET_TAGS_ERROR, error: error.message})
+  }
 }
 
-// Bootstrap sagas
+// All sagas to be loaded
 export default [
-  githubData,
-];
+  tagsSaga,
+  svgSaga
+]
