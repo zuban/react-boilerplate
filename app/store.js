@@ -11,7 +11,7 @@ import createLogger from 'redux-logger'
 const sagaMiddleware = createSagaMiddleware();
 
 const Logger = createLogger({
-  predicate: () => true
+  predicate: () => process.env.NODE_ENV !== 'production'
 })
 export default function configureStore(initialState = {}, history) {
   // Create the store with two middlewares

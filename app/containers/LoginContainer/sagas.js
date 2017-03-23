@@ -11,11 +11,15 @@ export function* loginSaga () {
 
 function* loginUser (action) {
   try {
-    yield call(service.getSVG, action.login, action.password)
+    const payload = yield call(service.login.bind(service),
+      action.login,
+      action.password
+    )
     yield put({type: LOGIN_SUCCESS})
+
   }
   catch (error) {
-    put({type: LOGIN_FAIL, error})
+    yield put({type: LOGIN_FAIL, error: error.message})
   }
 }
 

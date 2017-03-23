@@ -13,7 +13,7 @@ class BaseService {
     if (getCookie('access-token')) {
       this.token = getCookie('access-token')
     }
-    this.entryUrl = window.location.origin
+    this.entryUrl = 'http://localhost:3000/'//window.location.origin
     this.apiClient = new RestApiClient({
       entryUrl: this.entryUrl,
       requestHeaders: this.requestHeaders,
@@ -96,7 +96,6 @@ class BaseService {
   }
 
   login (login, password) {
-    debugger
     setCookie('username', login)
     return new Promise((resolve, reject) => {
       this.apiClient
@@ -111,9 +110,9 @@ class BaseService {
     return new Promise((resolve, reject) => {
       this.apiClient
         .post('hw/services/user', {
+          username,
           email,
           password,
-          username
         }, {})
         .end((error, response) => {
           this.processResponse(error, response).then(resolve, reject)

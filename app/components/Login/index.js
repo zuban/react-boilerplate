@@ -1,39 +1,63 @@
-// /**
-//  *
-//  * Login
-//  *
-//  */
-//
-// import React from 'react'
-// // import styled from 'styled-components';
-// import {
-//   Container,
-//   Row,
-//   Col,
-// } from 'reactstrap'
-// import ReactForm from '../../components/Login/LoginForm'
-//
-// class Login extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-//   onSubmit (...args) {
-//     debugger;
-//   }
-//
-//   render () {
-//     return (
-//       <Container style={{
-//         maxWidth: '400px',
-//         marginTop: '20px'
-//       }}>
-//         <Row>
-//           <Col>
-//             <ReactForm onSubmit={(...args) => this.onSubmit(...args)}/>
-//           </Col>
-//         </Row>
-//       </Container>
-//     )
-//   }
-// }
-//
-// Login.propTypes = {}
-//
-// export default Login
+/**
+ * Created by sergeyzubov on 20/03/2017.
+ */
+import React from 'react'
+import {
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  FormText,
+} from 'reactstrap'
+import { Link } from 'react-router'
+import { Field, reduxForm } from 'redux-form/immutable'
+
+const LoginForm = (props) => {
+  const {
+    handleSubmit,
+    pristine,
+    submitting
+  } = props
+  return (
+    <Form onSubmit={handleSubmit}>
+      <FormGroup>
+        <Label >Email</Label>
+        <Field
+          className='form-control'
+          name='email'
+          component='input'
+          type='email'
+          placeholder='Your email'
+        />
+      </FormGroup>
+      <FormGroup>
+        <Label>Password</Label>
+        <Field
+          className='form-control'
+          name='password'
+          component='input'
+          type='password'
+          placeholder='Your password'
+        />
+      </FormGroup>
+      <FormGroup>
+        <FormText color='muted'>
+          Want to <Link to={'/singup'}>sign up?</Link>
+        </FormText>
+        <FormText color='muted'>
+          <Link to={'/reset-password'}>Forget</Link> your password?
+        </FormText>
+      </FormGroup>
+      <FormGroup>
+        <Button type='submit' disabled={pristine || submitting}>Submit</Button>
+      </FormGroup>
+    </Form>
+  )
+}
+
+const LoginFormWrapper = reduxForm({
+  form: 'loginForm'
+})
+(LoginForm)
+
+export default LoginFormWrapper

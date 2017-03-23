@@ -12,11 +12,13 @@ import makeSelectLoginContainer from './selectors'
 
 import { login } from './actions'
 
-import LoginForm from '../../components/Login/LoginForm'
+import LoginForm from '../../components/Login'
 import {
   Container,
   Row,
   Col,
+  Alert,
+  FormGroup
 } from 'reactstrap'
 
 export class LoginContainer extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -42,14 +44,14 @@ export class LoginContainer extends React.Component { // eslint-disable-line rea
           <Row>
             <Col>
               <LoginForm onSubmit={(formArgs) => this.onSubmit(formArgs)}/>
+              {
+                this.props.loginState.errorMessage ? <FormGroup>
+                  <Alert color='danger'>
+                    {this.props.loginState.errorMessage}
+                  </Alert>
+                </FormGroup> : null
+              }
             </Col>
-            {
-              this.props.loginState.errorMessage ? <FormGroup>
-                <Alert color='danger'>
-                  {this.props.loginState.errorMessage}
-                </Alert>
-              </FormGroup> : null
-            }
           </Row>
         </Container>
       </div>
