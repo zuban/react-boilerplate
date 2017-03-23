@@ -5,11 +5,16 @@
  */
 
 import {
-  DEFAULT_ACTION,
+  SENT_LOGIN_DATA,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
 } from './constants'
 
-export function defaultAction () {
-  return {
-    type: DEFAULT_ACTION,
-  }
-}
+import { getService } from '../../service/Service'
+const service = new getService()
+
+export const login = (login, password) => ({
+  type: SENT_LOGIN_DATA,
+  login,
+  password
+})

@@ -1,31 +1,22 @@
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import React, { Component } from 'react'
+import { Link } from 'react-router'
+import {
+  Nav,
+  NavItem,
+  NavLink
+} from 'reactstrap'
 
-import A from './A';
-import Img from './Img';
-import NavBar from './NavBar';
-import HeaderLink from './HeaderLink';
-import Banner from './banner.jpg';
-import messages from './messages';
-
-class Header extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  render() {
+class Header extends Component { // eslint-disable-line react/prefer-stateless-function
+  render () {
     return (
-      <div>
-        <A href="https://twitter.com/mxstbr">
-          <Img src={Banner} alt="react-boilerplate - Logo" />
-        </A>
-        <NavBar>
-          <HeaderLink to="/">
-            <FormattedMessage {...messages.home} />
-          </HeaderLink>
-          <HeaderLink to="/features">
-            <FormattedMessage {...messages.features} />
-          </HeaderLink>
-        </NavBar>
+      <div >
+        <h3 style={{marginTop: 0, marginBottom: 0, lineHeight: '2.5rem'}} className='text-muted logo'>
+          <Link to={'/'}>HW</Link>
+        </h3>
       </div>
-    );
+
+    )
   }
 }
 
-export default Header;
+export default Header

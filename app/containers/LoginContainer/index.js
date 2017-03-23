@@ -10,7 +10,22 @@ import Helmet from 'react-helmet'
 import { createStructuredSelector } from 'reselect'
 import makeSelectLoginContainer from './selectors'
 
+import { login } from './actions'
+
+import LoginForm from '../../components/Login/LoginForm'
+import {
+  Container,
+  Row,
+  Col,
+} from 'reactstrap'
+
 export class LoginContainer extends React.Component { // eslint-disable-line react/prefer-stateless-function
+
+  onSubmit (formArgs) {
+
+    this.props.login(formArgs.email, formArgs.password)
+  }
+
   render () {
     return (
       <div>
@@ -20,23 +35,34 @@ export class LoginContainer extends React.Component { // eslint-disable-line rea
             {name: 'description', content: 'Description of LoginContainer'},
           ]}
         />
+        <Container style={{
+          maxWidth: '400px',
+          marginTop: '20px'
+        }}>
+          <Row>
+            <Col>
+              <LoginForm onSubmit={(formArgs) => this.onSubmit(formArgs)}/>
+            </Col>
+            {
+              this.props.loginState.errorMessage ? <FormGroup>
+                <Alert color='danger'>
+                  {this.props.loginState.errorMessage}
+                </Alert>
+              </FormGroup> : null
+            }
+          </Row>
+        </Container>
       </div>
     )
   }
 }
 
-LoginContainer.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-}
-
 const mapStateToProps = createStructuredSelector({
-  LoginContainer: makeSelectLoginContainer(),
+  loginState: makeSelectLoginContainer(),
 })
 
-function mapDispatchToProps (dispatch) {
-  return {
-    dispatch,
-  }
+const mapDispatchToProps = {
+  login,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer)
