@@ -1,69 +1,71 @@
 import React, { Component } from 'react'
-import {
-  Nav,
-  NavItem,
-  NavLink,
-  InputGroup,
-  InputGroupButton,
-  Button,
-  Col,
-  Row
-} from 'reactstrap'
+
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap'
+
+import Img from '../Img'
 import { Link } from 'react-router'
-import TagInput from '../TagInput'
+
+import Logo from './LogoSquare.jpg'
 class Header extends Component { // eslint-disable-line react/prefer-stateless-function
+  constructor (props) {
+    super(props)
+
+    this.toggle = this.toggle.bind(this)
+    this.state = {
+      isOpen: false
+    }
+  }
+
+  toggle () {
+    this.setState({
+      isOpen: !this.state.isOpen
+    })
+  }
+
   render () {
     return (
-      <div style={{paddingBottom: '1rem'}}>
-        <nav style={{marginBottom: '1rem'}}>
-          <Nav pills className='float-right'>
+      <Navbar light toggleable>
+        <NavbarToggler right onClick={this.toggle}/>
+        <NavbarBrand href="/">
+          <Img src={Logo} className='logo'/>
+        </NavbarBrand>
+        <Collapse isOpen={this.state.isOpen} navbar>
+          <Nav className="ml-auto" navbar>
             <NavItem>
-              <NavLink>
-                <Link to={'/login'}>
-                  <i className='fa fa-sign-out' aria-hidden='true'/>
-                  Log out
-                </Link>
+              <NavLink className="header-font">
+                Contact
               </NavLink>
             </NavItem>
             <NavItem>
+              <NavLink className="header-font">
+                <span style={{
+                  fontWeight: 'bold',
+                  height: '25px',
+                  lineHeight: '25px',
+                  verticalAlign: 'middle'
+                }}>EU</span>&nbsp;
+                <a className="phonenummber">+49 (0)40 609461260</a>&nbsp;
+                <span style={{
+                  fontWeight: 'bold',
+                  height: '25px',
+                  lineHeight: '25px',
+                  verticalAlign: 'middle'
+                }}>US</span>&nbsp;
+                <a className="phonenummber">+1 (310) 465-8797</a>
+              </NavLink>
+            </NavItem>
+          </Nav>
+          <Nav className="ml-auto" navbar>
+            <NavItem>
               <NavLink>
-                <Link to={'/upload'}>
-                  <i className='fa fa-file-text-o' aria-hidden='true'/>
-                  Upload svg
+                <Link to={'/login'}>
+                  <i className="icon-user set icons-grey-light sm"/>
                 </Link>
               </NavLink>
             </NavItem>
           </Nav>
-        </nav>
-        <div>
-          <Row>
-            <Col sm={{size: 2}}>
-              <h3 style={{marginTop: 0, marginBottom: 0, lineHeight: '2.5rem'}} className='text-muted logo'>
-                <Link to={'/'}>Slink</Link>
-              </h3>
-            </Col>
-            <Col sm={{size: 9, offset: 1}}>
-              <InputGroup>
-                <input
-                  onChange={(e) => this.props.handleSearchText(e.target.value)}
-                  type='text'
-                  name='text'
-                  className='form-control'
-                  placeholder='Search by text...'
-                />
-                <InputGroupButton>
-                  <Button color='secondary'>Search</Button>
-                </InputGroupButton>
-              </InputGroup>
-              <InputGroup>
-                <TagInput handleSearchTags={this.props.handleSearchTags}
-                          tags={this.props.tags}
-                          style={{width: '300px'}}/>
-              </InputGroup>
-            </Col>
-          </Row>
-        </div>
-      </div>
+        </Collapse>
+      </Navbar>
     )
   }
 }

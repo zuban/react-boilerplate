@@ -21,6 +21,9 @@ import {
   FormGroup
 } from 'reactstrap'
 
+import Header from '../../components/Header'
+import Footer from '../../components/Footer'
+
 export class LoginContainer extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   onSubmit (formArgs) {
@@ -37,12 +40,13 @@ export class LoginContainer extends React.Component { // eslint-disable-line rea
             {name: 'description', content: 'Description of LoginContainer'},
           ]}
         />
-        <Container style={{
-          maxWidth: '400px',
-          marginTop: '20px'
-        }}>
-          <Row>
-            <Col>
+        <Container fluid>
+          <Header
+          />
+          <Row className="layout-img-container">
+          </Row>
+          <Row style={{margin: '0 auto', maxWidth: '866px', marginTop: '50px'}}>
+            <Col style={{padding: '35px 15px 43px 15px', background: '#ededed'}}>
               <LoginForm onSubmit={(formArgs) => this.onSubmit(formArgs)}/>
               {
                 this.props.loginState.errorMessage ? <FormGroup>
@@ -54,6 +58,7 @@ export class LoginContainer extends React.Component { // eslint-disable-line rea
             </Col>
           </Row>
         </Container>
+        <Footer/>
       </div>
     )
   }

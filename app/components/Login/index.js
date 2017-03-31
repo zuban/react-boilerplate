@@ -21,7 +21,6 @@ const LoginForm = (props) => {
   return (
     <Form onSubmit={handleSubmit}>
       <FormGroup>
-        <Label >Email</Label>
         <Field
           className='form-control'
           name='email'
@@ -31,7 +30,6 @@ const LoginForm = (props) => {
         />
       </FormGroup>
       <FormGroup>
-        <Label>Password</Label>
         <Field
           className='form-control'
           name='password'
