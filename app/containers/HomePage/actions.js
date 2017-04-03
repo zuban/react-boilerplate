@@ -17,6 +17,7 @@
 
 import {
   GET_FORMS,
+  CREATE_NEW_FORM,
 } from './constants'
 
 /**
@@ -26,4 +27,14 @@ import {
  */
 export const getForms = () => ({
   type: GET_FORMS,
+})
+
+/**
+ * get avaliable forms
+ *
+ * @return {object}    An action object with a type of GET_TAGS
+ */
+export const createFrom = (formObj) => ({
+  type: CREATE_NEW_FORM,
+  formObj
 })

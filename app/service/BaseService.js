@@ -96,8 +96,6 @@ class BaseService {
   }
 
   login (login, password) {
-    console.log(login)
-    console.log(password)
     setCookie('username', login)
     return new Promise((resolve, reject) => {
       this.apiClient
@@ -109,10 +107,9 @@ class BaseService {
   }
 
   singup (fields) {
-    let formData = fields
     return new Promise((resolve, reject) => {
       this.apiClient
-        .post('oauth/uaa/user', formData, {})
+        .post('oauth/uaa/user', fields, {})
         .end((error, response) => {
           this.processResponse(error, response).then(resolve, reject)
         })
@@ -130,7 +127,16 @@ class BaseService {
           this.processResponse(error, response).then(resolve, reject)
         })
     })
+  }
 
+  createNewRecord (formObj) {
+    return new Promise((resolve, reject) => {
+      this.apiClient
+        .post('jotform/submissionform/ ', formObj)
+        .end((error, response) => {
+          this.processResponse(error, response).then(resolve, reject)
+        })
+    })
   }
 
   getSVGByTagValue (tags, predicate) {

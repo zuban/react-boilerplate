@@ -16,11 +16,18 @@
  */
 
 import {
-  SET_AUTHENTICATED
-} from './constants';
+  SET_AUTHENTICATED,
+  SET_LOGOUT
+} from './constants'
 
 export function setAuthenticated () {
   return {
     type: SET_AUTHENTICATED,
-  };
+  }
+}
+
+export function logout () {
+  return {
+    type: SET_LOGOUT,
+  }
 }

@@ -13,7 +13,7 @@ import {
 import { Link } from 'react-router'
 import { Field, reduxForm } from 'redux-form/immutable'
 
-const LoginForm = (props) => {
+const CreateNewForm = (props) => {
   const {
     handleSubmit,
     pristine,
@@ -22,26 +22,14 @@ const LoginForm = (props) => {
   return (
     <Form onSubmit={handleSubmit}>
       <FormGroup row>
-        <Label sm={4}>Email</Label>
+        <Label sm={4}>Form name</Label>
         <Col sm={8}>
           <Field
             className='form-control'
-            name='login'
+            name='name'
             component='input'
-            type='email'
-            placeholder='Your email'
-          />
-        </Col>
-      </FormGroup>
-      <FormGroup row>
-        <Label sm={4}>Password</Label>
-        <Col sm={8}>
-          <Field
-            className='form-control'
-            name='password'
-            component='input'
-            type='password'
-            placeholder='Your password'
+            type='text'
+            placeholder='Enter form name'
           />
         </Col>
       </FormGroup>
@@ -49,15 +37,15 @@ const LoginForm = (props) => {
         <Button
           color="success"
           type='submit'
-          disabled={pristine || submitting}>Login</Button>
+          disabled={pristine || submitting}>Create</Button>
       </FormGroup>
     </Form>
   )
 }
 
-const LoginFormWrapper = reduxForm({
-  form: 'loginForm'
+const CreateNewFormWrapper = reduxForm({
+  form: 'createNewFrom'
 })
-(LoginForm)
+(CreateNewForm)
 
-export default LoginFormWrapper
+export default CreateNewFormWrapper

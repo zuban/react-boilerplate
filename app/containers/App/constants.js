@@ -10,4 +10,5 @@
  */
 
 export const SET_AUTHENTICATED = 'maground/App/SET_AUTHENTICATED'
+export const SET_LOGOUT = 'maground/App/SET_LOGOUT'
 export const DEFAULT_LOCALE = 'en';

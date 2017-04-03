@@ -13,7 +13,8 @@
 import { fromJS } from 'immutable'
 
 import {
-  SET_AUTHENTICATED
+  SET_AUTHENTICATED,
+  SET_LOGOUT
 } from './constants'
 
 import { getService } from '../../service/Service'
@@ -22,7 +23,7 @@ const service = new getService()
 // The initial state of the App
 const initialState = fromJS({
   loading: false,
-  currentUser: false,
+  userName: null,
   isAuthenticated: service.checkToken(),
 })
 
@@ -31,6 +32,9 @@ function appReducer (state = initialState, action) {
     case SET_AUTHENTICATED:
       return state
         .set('isAuthenticated', true)
+    case SET_LOGOUT:
+      return state
+        .set('isAuthenticated', false)
     default:
       return state
   }

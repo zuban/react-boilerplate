@@ -26,8 +26,10 @@ class Header extends Component { // eslint-disable-line react/prefer-stateless-f
     return (
       <Navbar light toggleable>
         <NavbarToggler right onClick={this.toggle}/>
-        <NavbarBrand href="/jotform/">
-          <Img src={Logo} className='logo'/>
+        <NavbarBrand >
+          <Link to={'/jotform/'}>
+            <Img src={Logo} className='logo'/>
+          </Link>
         </NavbarBrand>
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="ml-auto" navbar>

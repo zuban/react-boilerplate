@@ -79,6 +79,9 @@ export function getAsyncInjectors(store) {
   };
 }
 
+/**
+ * Helper for check auth token
+ */
 export function redirectToLogin (store) {
   return (nextState, replace) => {
     console.log(store)

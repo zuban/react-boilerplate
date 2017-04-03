@@ -58,7 +58,7 @@ injectGlobal`
     }
     
   .icons-grey-light {
-    background: url(./icons/icons_set_grey_light.png) no-repeat;
+    background: url(/jotform/icons/icons_set_grey_light.png) no-repeat;
     background-size: 125px auto;
     height: 25px;
     width: 25px;
