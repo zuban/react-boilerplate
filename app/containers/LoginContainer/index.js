@@ -10,7 +10,7 @@ import Helmet from 'react-helmet'
 import { createStructuredSelector } from 'reselect'
 import makeSelectLoginContainer from './selectors'
 
-import { login } from './actions'
+import { login, signUp } from './actions'
 
 import LoginForm from '../../components/Login'
 import SignUpForm from '../../components/SignUp'
@@ -27,18 +27,24 @@ import Footer from '../../components/Footer'
 
 export class LoginContainer extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
-  onSubmit (formArgs) {
+  onSubmitSignUp (formArgs) {
+    let newFormArgs = formArgs.set('roles', ['ROLE_PHOTOGRAPHER'])
+    this.props.signUp(newFormArgs)
+  }
 
-    this.props.login(formArgs.email, formArgs.password)
+  onSubmitLogin (formArgs) {
+    console.log(formArgs)
+    this.props.login(formArgs.get('login'), formArgs.get('password'))
   }
 
   render () {
+    const {signupErrorMessage, signupSuccessMessage, loginErrorMessage} = this.props.loginState
     return (
       <div>
         <Helmet
-          title="LoginContainer"
+          title="Login page"
           meta={[
-            {name: 'description', content: 'Description of LoginContainer'},
+            {name: 'login and signup pages', content: 'Login page'},
           ]}
         />
         <Container fluid>
@@ -65,11 +71,18 @@ export class LoginContainer extends React.Component { // eslint-disable-line rea
                  Create a customer account for free of charge.
               </span>
               </div>
-              <SignUpForm onSubmit={(formArgs) => this.onSubmit(formArgs)}/>
+              <SignUpForm onSubmit={(formArgs) => this.onSubmitSignUp(formArgs)}/>
               {
-                this.props.loginState.errorMessage ? <FormGroup>
+                signupErrorMessage ? <FormGroup>
                   <Alert color='danger'>
-                    {this.props.loginState.errorMessage}
+                    {signupErrorMessage}
+                  </Alert>
+                </FormGroup> : null
+              }
+              {
+                signupSuccessMessage ? <FormGroup>
+                  <Alert color='success'>
+                    {signupSuccessMessage}
                   </Alert>
                 </FormGroup> : null
               }
@@ -81,11 +94,11 @@ export class LoginContainer extends React.Component { // eslint-disable-line rea
               <div style={{textAlign: 'center', marginBottom: '120px'}}>
                 <h2 className="headline roboto-bold">You already have an account?</h2>
               </div>
-              <LoginForm onSubmit={(formArgs) => this.onSubmit(formArgs)}/>
+              <LoginForm onSubmit={(formArgs) => this.onSubmitLogin(formArgs)}/>
               {
-                this.props.loginState.errorMessage ? <FormGroup>
+                signupErrorMessage ? <FormGroup>
                   <Alert color='danger'>
-                    {this.props.loginState.errorMessage}
+                    {signupErrorMessage}
                   </Alert>
                 </FormGroup> : null
               }
@@ -104,6 +117,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = {
   login,
+  signUp,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer)

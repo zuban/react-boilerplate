@@ -5,7 +5,9 @@
  * code.
  */
 // Mimic client-side mocking tool
-import 'mimic'
+if (process.env.NODE_ENV !== 'production') {
+  require('mimic')
+}
 
 // Needed for redux-saga es6 generator support
 import 'babel-polyfill'

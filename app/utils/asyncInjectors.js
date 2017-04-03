@@ -75,5 +75,19 @@ export function getAsyncInjectors(store) {
   return {
     injectReducer: injectAsyncReducer(store, true),
     injectSagas: injectAsyncSagas(store, true),
+    redirectToLogin: redirectToLogin(store)
   };
 }
+
+export function redirectToLogin (store) {
+  return (nextState, replace) => {
+    console.log(store)
+    if (!store.getState().getIn(['global', 'isAuthenticated'])) {
+      replace({
+        pathname: '/jotform/login',
+        state: {nextPathname: nextState.location.pathname}
+      })
+    }
+  }
+}
+

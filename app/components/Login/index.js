@@ -26,7 +26,7 @@ const LoginForm = (props) => {
         <Col sm={8}>
           <Field
             className='form-control'
-            name='email'
+            name='login'
             component='input'
             type='email'
             placeholder='Your email'

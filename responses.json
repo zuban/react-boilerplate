@@ -1,0 +1,18 @@
+{
+  "firstName": "еуые",
+  "userName": "test@gmail.com",
+  "email": "test@gmail.com",
+  "jobTitle": "Creative Director",
+  "company": "test",
+  "countryId": 4,
+  "getNewsLetters": false,
+  "roles": [
+    "ROLE_USER"
+  ],
+  "links": [
+    {
+      "rel": "self",
+      "href": "http://oauth:2680/uaa/user?userName=test@gmail.com"
+    }
+  ]
+}

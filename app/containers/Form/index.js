@@ -23,7 +23,6 @@ import JotFormComponent from '../../components/JotForm'
 
 export class Form extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   onSubmit (props) {
-    debugger
   }
 
   render () {

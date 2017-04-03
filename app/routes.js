@@ -14,10 +14,15 @@ const loadModule = (cb) => (componentModule) => {
 
 export default function createRoutes(store) {
   // create reusable async injectors using getAsyncInjectors factory
-  const { injectReducer, injectSagas } = getAsyncInjectors(store);
+  const {
+    injectReducer,
+    injectSagas,
+    redirectToLogin
+  } = getAsyncInjectors(store)
 
   return [
     {
+      onEnter: redirectToLogin,
       path: '/jotform/',
       name: 'home',
       getComponent(nextState, cb) {
@@ -81,6 +86,7 @@ export default function createRoutes(store) {
       },
     },
     {
+      onEnter: redirectToLogin,
       path: '/jotform/form/:id',
       name: 'form',
       getComponent(nextState, cb) {

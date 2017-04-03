@@ -13,7 +13,7 @@ class BaseService {
     if (getCookie('access-token')) {
       this.token = getCookie('access-token')
     }
-    this.entryUrl = 'http://localhost:3000/'//window.location.origin
+    this.entryUrl = 'https://192.168.178.61/'//window.location.origin
     this.apiClient = new RestApiClient({
       entryUrl: this.entryUrl,
       requestHeaders: this.requestHeaders,
@@ -96,24 +96,23 @@ class BaseService {
   }
 
   login (login, password) {
+    console.log(login)
+    console.log(password)
     setCookie('username', login)
     return new Promise((resolve, reject) => {
       this.apiClient
-        .post(`hw/oauth/token?grant_type=password&client_id=acme&client_secret=acmesecret&username${login}&password=${password}`)
+        .post(`oauth/uaa/oauth/token?grant_type=password&client_id=jodform&client_secret=jodform_password&username=${login}&password=${password}`)
         .end((error, response) => {
           this.processLoginResponse(error, response).then(resolve, reject)
         })
     })
   }
 
-  singup (username, email, password) {
+  singup (fields) {
+    let formData = fields
     return new Promise((resolve, reject) => {
       this.apiClient
-        .post('hw/services/user', {
-          username,
-          email,
-          password,
-        }, {})
+        .post('oauth/uaa/user', formData, {})
         .end((error, response) => {
           this.processResponse(error, response).then(resolve, reject)
         })

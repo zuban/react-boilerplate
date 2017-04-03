@@ -60,7 +60,7 @@ const SignUpForm = (props) => {
       <FormGroup row>
         <Label sm={4}>Your Position</Label>
         <Col sm={8}>
-          <Field name="position" className="form-control" component='select'>
+          <Field name="jobTitle" className="form-control" component='select'>
             <option value=""></option>
             <option value="Designer">Designer</option>
             <option value="Art Director">Art Director</option>
@@ -77,7 +77,7 @@ const SignUpForm = (props) => {
       <FormGroup row>
         <Label sm={4}>Please Choose Country</Label>
         <Col sm={8}>
-          <Field name="country" className="form-control" component='select'>
+          <Field name="countryId" className="form-control" component='select'>
             <option value=""></option>
             <option value="3">Argentina</option>
             <option value="4">Australia</option>
