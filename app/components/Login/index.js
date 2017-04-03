@@ -22,8 +22,8 @@ const LoginForm = (props) => {
   return (
     <Form onSubmit={handleSubmit}>
       <FormGroup row>
-        <Label sm={2}>Email</Label>
-        <Col sm={10}>
+        <Label sm={4}>Email</Label>
+        <Col sm={8}>
           <Field
             className='form-control'
             name='email'
@@ -34,8 +34,8 @@ const LoginForm = (props) => {
         </Col>
       </FormGroup>
       <FormGroup row>
-        <Label sm={2}>Password</Label>
-        <Col sm={10}>
+        <Label sm={4}>Password</Label>
+        <Col sm={8}>
           <Field
             className='form-control'
             name='password'
@@ -46,15 +46,10 @@ const LoginForm = (props) => {
         </Col>
       </FormGroup>
       <FormGroup>
-        <FormText color='muted'>
-          Want to <Link to={'/singup'}>sign up?</Link>
-        </FormText>
-        <FormText color='muted'>
-          <Link to={'/reset-password'}>Forget</Link> your password?
-        </FormText>
-      </FormGroup>
-      <FormGroup>
-        <Button type='submit' disabled={pristine || submitting}>Submit</Button>
+        <Button
+          color="success"
+          type='submit'
+          disabled={pristine || submitting}>Submit</Button>
       </FormGroup>
     </Form>
   )
