@@ -8,17 +8,21 @@ import {
   FormGroup,
   Label,
   Col,
-  Input
+  Input,
+  FormText
 } from 'reactstrap'
 import { Link } from 'react-router'
+import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form/immutable'
+import { fromJS } from 'immutable'
 
-const JotForm = (props) => {
+let JotForm = (props) => {
   const {
     handleSubmit,
     pristine,
     submitting
   } = props
+
   return (
     <Form style={{marginTop: '50px'}} onSubmit={handleSubmit}>
       <FormGroup row>
@@ -34,17 +38,15 @@ const JotForm = (props) => {
         </Col>
       </FormGroup>
 
-
       <FormGroup row>
-        <Label sm={2}>
-          MAGROUND Shortcut</Label>
+        <Label sm={2}>First Name</Label>
         <Col sm={10}>
           <Field
             className='form-control'
-            name='magroundShortCut'
+            name='lastName'
             component='input'
             type='text'
-            placeholder='MAGROUND Shortcut'
+            placeholder='First name'
           />
         </Col>
       </FormGroup>
@@ -61,6 +63,24 @@ const JotForm = (props) => {
           />
         </Col>
       </FormGroup>
+
+      <FormGroup row>
+        <Label sm={2}>
+          MAGROUND Shortcut</Label>
+        <Col sm={10}>
+          <Field
+            className='form-control'
+            name='yourgiven11'
+            component='input'
+            type='text'
+            placeholder='MAGROUND Shortcut'
+          />
+          <FormText color="muted">
+            May come in handy when creating a lot of forms to sort into the sets.
+          </FormText>
+        </Col>
+      </FormGroup>
+
       <FormGroup row>
         <Label sm={2}>
           Your given Set/Clip Name (optional)</Label>
@@ -79,39 +99,43 @@ const JotForm = (props) => {
         <Col sm={10}>
           <FormGroup check>
             <Label check>
-              <Field name="selectClip" className="form-check-label" component='input' type="radio" value="cgiRender"/>
+              <Field name="renderoremotion" className="form-check-label" component='input' type="radio"
+                     value="for CGI-Render"/>
               for CGI-Render
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="selectClip" className="form-check-label" component='input' type="radio"
-                     value="storytelling"/>
-              for Storytelling,
-              emotion
+              <Field name="renderoremotion" className="form-check-label" component='input' type="radio"
+                     value="for Storytelling, emotion"/>
+              for Storytelling, emotion
             </Label>
           </FormGroup>
+          <FormText color="muted">
+            If the clip is designed design for adding a 3D object, then more information is required.
+          </FormText>
         </Col>
       </FormGroup>
+
       <FormGroup row>
-        <Label sm={2}>
-          Specific</Label>
+        <Label sm={2}>Specific</Label>
+
         <Col sm={3}>
           <FormGroup check>
             <Label check>
-              <Field name="specific" className="form-check-label" component='input' type="radio" value="driving"/>
+              <Field name="specific" className="form-check-label" component='input' type="radio" value="Driving"/>
               Driving
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="specific" className="form-check-label" component='input' type="radio" value="drone"/>
+              <Field name="specific" className="form-check-label" component='input' type="radio" value="Drone"/>
               Drone
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="specific" className="form-check-label" component='input' type="radio" value="timelapse"/>
+              <Field name="specific" className="form-check-label" component='input' type="radio" value="Timelapse"/>
               Timelapse
             </Label>
           </FormGroup>
@@ -119,19 +143,20 @@ const JotForm = (props) => {
         <Col sm={3}>
           <FormGroup check>
             <Label check>
-              <Field name="specific" className="form-check-label" component='input' type="radio" value="aerial"/>
+              <Field name="specific" className="form-check-label" component='input' type="radio" value="Aerial"/>
               Aerial
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
               <Field name="specific" className="form-check-label" component='input' type="radio" value="360Video"/>
-              Aerial
+              360Video
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="specific" className="form-check-label" component='input' type="radio" value="timelapse"/>
+              <Field name="specific" className="form-check-label" component='input' type="radio"
+                     value="Motion Timelapse"/>
               Motion Timelapse
             </Label>
           </FormGroup>
@@ -139,29 +164,36 @@ const JotForm = (props) => {
         <Col sm={3}>
           <FormGroup check>
             <Label check>
-              <Field name="specific" className="form-check-label" component='input' type="radio" value="underwater"/>
+              <Field name="specific" className="form-check-label" component='input' type="radio" value="Underwater"/>
               Underwater
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
               <Field name="specific" className="form-check-label" component='input' type="radio"
-                     value="reflectVideos"/>
+                     value="ReflectVideos"/>
               ReflectVideos
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="specific" className="form-check-label" component='input' type="radio" value="motion"/>
+              <Field name="specific" className="form-check-label" component='input' type="radio" value="Stop Motion"/>
               Stop Motion
             </Label>
           </FormGroup>
+        </Col>
+        <Col sm={{size: 'auto', offset: 2}}>
+          <FormText color="muted">
+            Please Select 360Video for full spherical videos, and "ReflectVideos" if they are several clips, like 5
+            Go-Pros mounted to a rigged car.
+            Create one continuous clip out of all clips with a one second black timeline between clips.
+          </FormText>
         </Col>
       </FormGroup>
       <FormGroup row>
         <Label sm={2}>Recording Framerate</Label>
         <Col sm={10}>
-          <Field name="recordingFramerate" className="form-control" component='select'>
+          <Field name="recordingframerate" className="form-control" component='select'>
             <option value=""></option>
             <option value="23.976"> 23.976</option>
             <option value="24"> 24</option>
@@ -185,12 +217,15 @@ const JotForm = (props) => {
             <option value="800"> 800</option>
             <option value="1000"> 1000</option>
           </Field>
+          <FormText color="muted">
+            Recording Framerate may be 60fps for slow-motion and project Framerate is 30fps to have slow-motion effect.
+          </FormText>
         </Col>
       </FormGroup>
       <FormGroup row>
         <Label sm={2}>Focal Length</Label>
         <Col sm={10}>
-          <Field name="focalLength" className="form-control" component='select'>
+          <Field name="focallength" className="form-control" component='select'>
             <option value=""></option>
             <option value="10mm"> 10mm</option>
             <option value="12mm"> 12mm</option>
@@ -213,6 +248,10 @@ const JotForm = (props) => {
             <option value="350mm"> 350mm</option>
             <option value="500mm"> 500mm</option>
           </Field>
+          <FormText color="muted">
+            The actual recorded focal-length. Especially important when shot with a zoom-lens
+          </FormText>
+
         </Col>
       </FormGroup>
       <FormGroup row>
@@ -221,17 +260,21 @@ const JotForm = (props) => {
         <Col sm={10}>
           <Field
             className='form-control'
-            name='lensUsed'
+            name='lensused'
             component='input'
             type='text'
             placeholder='Lens brand and model as: Brand Model Focal length/F-stop'
           />
+          <FormText color="muted">
+            i.e.: Zeiss CZ.2 18-35mm/T2.9
+          </FormText>
+
         </Col>
       </FormGroup>
       <FormGroup row>
-        <Label for="exampleSelect" sm={2}>Chip Size </Label>
+        <Label sm={2}>Chip Size </Label>
         <Col sm={10}>
-          <Field name="chipSize" className="form-control" component='select'>
+          <Field name="chipsize" className="form-control" component='select'>
             <option value=""></option>
             <option value="GoPro 2K ; 04.57x03.43mm"> GoPro 2K ; 04.57x03.43mm</option>
             <option value="CMOS 1/2.3&quot;: 6.17 x 4.55mm"> CMOS 1/2.3": 6.17 x 4.55mm</option>
@@ -271,9 +314,9 @@ const JotForm = (props) => {
         </Col>
       </FormGroup>
       <FormGroup row>
-        <Label for="exampleSelect" sm={2}>Recording Codec</Label>
+        <Label sm={2}>Recording Codec</Label>
         <Col sm={10}>
-          <Field name="recordingCodec" className="form-control" component='select'>
+          <Field name="recordingcodec" className="form-control" component='select'>
             <option value=""></option>
             <option value="H.264"> H.264</option>
             <option value="H.265"> H.265</option>
@@ -289,12 +332,17 @@ const JotForm = (props) => {
             <option value="AVC-Intra"> AVC-Intra</option>
             <option value="RAW"> RAW</option>
           </Field>
+          <FormText color="muted">
+            The original recording codec if differs from the delivered format "ProRes 422 (HQ)". And if original
+            recording stores more information then "ProRes 422 (HQ)" for delivery on demand. Or Log gamma settings. All
+            only if applicable.
+          </FormText>
         </Col>
       </FormGroup>
       <FormGroup row>
-        <Label for="exampleSelect" sm={2}>Mastered to </Label>
+        <Label sm={2}>Mastered to </Label>
         <Col sm={10}>
-          <Field name="masteredTo" className="form-control" component='select'>
+          <Field name="masteredto" className="form-control" component='select'>
             <option value=""></option>
             <option value="H.264"> H.264</option>
             <option value="MPEG2"> MPEG2</option>
@@ -303,10 +351,16 @@ const JotForm = (props) => {
             <option value="QuickTime ProRes 422HQ"> QuickTime ProRes 422HQ</option>
             <option value="QuickTIme ProRes 444"> QuickTIme ProRes 444</option>
           </Field>
+          <FormText color="muted">
+            The original recording codec if differs from the delivered format "ProRes 422 (HQ)". And if original
+            recording
+            stores more information then "ProRes 422 (HQ)" for delivery on demand. Or Log gamma settings. All only if
+            applicable.
+          </FormText>
         </Col>
       </FormGroup>
       <FormGroup row>
-        <Label for="exampleSelect" sm={2}>Resolution</Label>
+        <Label sm={2}>Resolution</Label>
         <Col sm={10}>
           <Field name="resolution" className="form-control" component='select'>
             <option value=""></option>
@@ -319,6 +373,12 @@ const JotForm = (props) => {
             <option value="1080p FULL HD"> 1080p FULL HD</option>
             <option value="720p  HD"> 720p HD</option>
           </Field>
+          <FormText color="muted">
+            The original recording codec if differs from the delivered format "ProRes 422 (HQ)". And if original
+            recording
+            stores more information then "ProRes 422 (HQ)" for delivery on demand. Or Log gamma settings. All only if
+            applicable.
+          </FormText>
         </Col>
       </FormGroup>
       <FormGroup row>
@@ -326,13 +386,13 @@ const JotForm = (props) => {
         <Col sm={10}>
           <FormGroup check>
             <Label check>
-              <Field name="audio" className="form-check-label" component='input' type="radio" value="yes"/>
+              <Field name="audio" className="form-check-label" component='input' type="radio" value="Yes"/>
               Yes
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="audio" className="form-check-label" component='input' type="radio" value="no"/>
+              <Field name="audio" className="form-check-label" component='input' type="radio" value="No"/>
               No
             </Label>
           </FormGroup>
@@ -344,31 +404,32 @@ const JotForm = (props) => {
         <Col sm={3}>
           <FormGroup check>
             <Label check>
-              <Field name="slide" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="motionintheclip;Slide" component="input" type="checkbox" className="form-check-input"/>
               Slide
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="pushInOut" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="motionintheclip;Push -in, -out" component="input" type="checkbox"
+                     className="form-check-input"/>
               Push -in, -out
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="still" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="motionintheclip;Still" component="input" type="checkbox" className="form-check-input"/>
               Still
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="chase" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="motionintheclip;Chase" component="input" type="checkbox" className="form-check-input"/>
               Chase
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="slowmotion" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="motionintheclip;Slowmotion" component="input" type="checkbox" className="form-check-input"/>
               Slowmotion
             </Label>
           </FormGroup>
@@ -376,31 +437,32 @@ const JotForm = (props) => {
         <Col sm={3}>
           <FormGroup check>
             <Label check>
-              <Field name="jib" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="motionintheclip;Jib" component="input" type="checkbox" className="form-check-input"/>
               Jib
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="trackingShot" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="motionintheclip;Tracking Shot" component="input" type="checkbox"
+                     className="form-check-input"/>
               Tracking Shot
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="tilt" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="motionintheclip;Tilt" component="input" type="checkbox" className="form-check-input"/>
               Tilt
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="follow" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="motionintheclip;Follow" component="input" type="checkbox" className="form-check-input"/>
               Follow
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="flying" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="motionintheclip;Flying" component="input" type="checkbox" className="form-check-input"/>
               Flying
             </Label>
           </FormGroup>
@@ -408,28 +470,36 @@ const JotForm = (props) => {
         <Col sm={3}>
           <FormGroup check>
             <Label check>
-              <Field name="slide" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="motionintheclip;Slide" component="input" type="checkbox" className="form-check-input"/>
               Slide
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="zoomInOut" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="motionintheclip;Zoom -in -out" component="input" type="checkbox"
+                     className="form-check-input"/>
               Zoom -in -out
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="Timelapse" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="motionintheclip;Timelapse" component="input" type="checkbox" className="form-check-input"/>
               Timelapse
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="motionTimelapse" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="motionintheclip;Motion timelapse" component="input" type="checkbox"
+                     className="form-check-input"/>
               Motion timelapse
             </Label>
           </FormGroup>
+        </Col>
+        <Col sm={{size: 'auto', offset: 2}}>
+          <FormText color="muted">
+            Type of camera-movements in set. When driving related to the car, when on location, movement of the camera.
+            Multiple options possible: driving, follow/chase, pan
+          </FormText>
         </Col>
       </FormGroup>
 
@@ -438,19 +508,19 @@ const JotForm = (props) => {
         <Col sm={3}>
           <FormGroup check>
             <Label check>
-              <Field name="3/4" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="cameradirection;3/4" component="input" type="checkbox" className="form-check-input"/>
               3/4
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="lowAngle" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="cameradirection;Low angle" component="input" type="checkbox" className="form-check-input"/>
               Low angle
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="topShot" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="cameradirection;Top-Shot" component="input" type="checkbox" className="form-check-input"/>
               Top-Shot
             </Label>
           </FormGroup>
@@ -458,30 +528,45 @@ const JotForm = (props) => {
         <Col sm={3}>
           <FormGroup check>
             <Label check>
-              <Field name="front" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="cameradirection;Front" component="input" type="checkbox" className="form-check-input"/>
               Front
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="normalHight" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="cameradirection;Normal hight" component="input" type="checkbox"
+                     className="form-check-input"/>
               Normal hight
+            </Label>
+          </FormGroup>
+          <FormGroup check>
+            <Label check>
+              <Field name="cameradirection;2/3" component="input" type="checkbox"
+                     className="form-check-input"/>
+              2/3
             </Label>
           </FormGroup>
         </Col>
         <Col sm={3}>
           <FormGroup check>
             <Label check>
-              <Field name="profile" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="cameradirection;Profile" component="input" type="checkbox" className="form-check-input"/>
               Profile
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="highAngle" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="cameradirection;High angle" component="input" type="checkbox" className="form-check-input"/>
               High angle
             </Label>
           </FormGroup>
+        </Col>
+        <Col sm={{size: 'auto', offset: 2}}>
+          <FormText color="muted">
+            Direction the camera is facing the car. 3/4, front, profile, top, low, high... multiple options are
+            possible:
+            3/4, low
+          </FormText>
         </Col>
       </FormGroup>
 
@@ -490,14 +575,14 @@ const JotForm = (props) => {
         <Col sm={3}>
           <FormGroup check>
             <Label check>
-              <Field name="timeOfDay" className="form-check-label" component='input' type="radio" value="Day"/>
+              <Field name="timeofday" className="form-check-label" component='input' type="radio" value="Day"/>
               Day
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
 
-              <Field name="timeOfDay" className="form-check-label" component='input' type="radio" value="Midnight"/>
+              <Field name="timeofday" className="form-check-label" component='input' type="radio" value="Midnight"/>
               Midnight
             </Label>
           </FormGroup>
@@ -505,13 +590,13 @@ const JotForm = (props) => {
         <Col sm={3}>
           <FormGroup check>
             <Label check>
-              <Field name="timeOfDay" className="form-check-label" component='input' type="radio" value="Night"/>
+              <Field name="timeofday" className="form-check-label" component='input' type="radio" value="Night"/>
               Night
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="timeOfDay" className="form-check-label" component='input' type="radio" value="Dusk"/>
+              <Field name="timeofday" className="form-check-label" component='input' type="radio" value="Dusk"/>
               Dusk
             </Label>
           </FormGroup>
@@ -519,13 +604,13 @@ const JotForm = (props) => {
         <Col sm={3}>
           <FormGroup check>
             <Label check>
-              <Field name="timeOfDay" className="form-check-label" component='input' type="radio" value="Noon"/>
+              <Field name="timeofday" className="form-check-label" component='input' type="radio" value="Noon"/>
               Noon
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="timeOfDay" className="form-check-label" component='input' type="radio" value="Dawn"/>
+              <Field name="timeofday" className="form-check-label" component='input' type="radio" value="Dawn"/>
               Dawn
             </Label>
           </FormGroup>
@@ -537,19 +622,19 @@ const JotForm = (props) => {
         <Col sm={3}>
           <FormGroup check>
             <Label check>
-              <Field name="sun" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="weather;Sun" component="input" type="checkbox" className="form-check-input"/>
               Sun
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="rain" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="weather;Rain" component="input" type="checkbox" className="form-check-input"/>
               Rain
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="wind" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="weather;Wind" component="input" type="checkbox" className="form-check-input"/>
               Wind
             </Label>
           </FormGroup>
@@ -557,19 +642,19 @@ const JotForm = (props) => {
         <Col sm={3}>
           <FormGroup check>
             <Label check>
-              <Field name="clouds" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="weather;Clouds" component="input" type="checkbox" className="form-check-input"/>
               Clouds
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="snow" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="weather;Snow" component="input" type="checkbox" className="form-check-input"/>
               Snow
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="storm" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="weather;Storm" component="input" type="checkbox" className="form-check-input"/>
               Storm
             </Label>
           </FormGroup>
@@ -577,29 +662,35 @@ const JotForm = (props) => {
         <Col sm={3}>
           <FormGroup check>
             <Label check>
-              <Field name="fog" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="weather;Fog" component="input" type="checkbox" className="form-check-input"/>
               Fog
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="overcast" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="weather;Overcast" component="input" type="checkbox" className="form-check-input"/>
               Overcast
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="N/A" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="weather;N/A" component="input" type="checkbox" className="form-check-input"/>
               N/A
             </Label>
           </FormGroup>
         </Col>
+        <Col sm={{size: 'auto', offset: 2}}>
+          <FormText color="muted">
+            Select multiple if applicable
+          </FormText>
+        </Col>
+
       </FormGroup>
 
       <FormGroup row>
         <Label sm={2}>Country</Label>
         <Col sm={10}>
-          <Field name="country" className="form-control" component='select'>
+          <Field name="contry" className="form-control" component='select'>
             <option value=""></option>
             <option value="United States"> United States</option>
             <option value="Canada"> Canada</option>
@@ -802,16 +893,18 @@ const JotForm = (props) => {
       </FormGroup>
 
       <FormGroup row>
-        <Label sm={2}>
-          City / Region</Label>
+        <Label sm={2}>City / Region</Label>
         <Col sm={10}>
           <Field
             className='form-control'
-            name='cityRegion'
+            name='cityregion'
             component='input'
             type='text'
             placeholder='City / Region'
           />
+          <FormText color="muted">
+            Please use correct spelling
+          </FormText>
         </Col>
       </FormGroup>
 
@@ -820,21 +913,21 @@ const JotForm = (props) => {
         <Col sm={3}>
           <FormGroup check>
             <Label check>
-              <Field name="downtown" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="area;Downtown" component="input" type="checkbox" className="form-check-input"/>
               Downtown
             </Label>
           </FormGroup>
 
           <FormGroup check>
             <Label check>
-              <Field name="landscape" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="area;Landscape" component="input" type="checkbox" className="form-check-input"/>
               Landscape
             </Label>
           </FormGroup>
 
           <FormGroup check>
             <Label check>
-              <Field name="coastal" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="area;Coastal" component="input" type="checkbox" className="form-check-input"/>
               Coastal
             </Label>
           </FormGroup>
@@ -842,20 +935,20 @@ const JotForm = (props) => {
         <Col sm={3}>
           <FormGroup check>
             <Label check>
-              <Field name="city" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="area;City" component="input" type="checkbox" className="form-check-input"/>
               City
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="rural" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="area;Rural" component="input" type="checkbox" className="form-check-input"/>
               Rural
             </Label>
 
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="desert" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="area;Desert" component="input" type="checkbox" className="form-check-input"/>
               Desert
             </Label>
           </FormGroup>
@@ -863,22 +956,27 @@ const JotForm = (props) => {
         <Col sm={3}>
           <FormGroup check>
             <Label check>
-              <Field name="urban" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="area;Urban" component="input" type="checkbox" className="form-check-input"/>
               Urban
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="subUrban" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="area;Sub-Urban" component="input" type="checkbox" className="form-check-input"/>
               Sub-Urban
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="mountain" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="area;Mountain" component="input" type="checkbox" className="form-check-input"/>
               Mountain
             </Label>
           </FormGroup>
+        </Col>
+        <Col sm={{size: 'auto', offset: 2}}>
+          <FormText color="muted">
+            Select multiple if applicable
+          </FormText>
         </Col>
       </FormGroup>
 
@@ -887,13 +985,13 @@ const JotForm = (props) => {
         <Col sm={5}>
           <FormGroup check>
             <Label check>
-              <Field name="HDRDome" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="additionalfiles;HDR Dome" component="input" type="checkbox" className="form-check-input"/>
               HDR Dome
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="360Video" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="additionalfiles;360° Video" component="input" type="checkbox" className="form-check-input"/>
               360° Video
             </Label>
           </FormGroup>
@@ -901,16 +999,23 @@ const JotForm = (props) => {
         <Col sm={5}>
           <FormGroup check>
             <Label check>
-              <Field name="360Panorama" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="additionalfiles;360° Panorama" component="input" type="checkbox"
+                     className="form-check-input"/>
               360° Panorama
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Field name="TrackingData" component="input" type="checkbox" className="form-check-input"/>
+              <Field name="additionalfiles;Tracking Data" component="input" type="checkbox"
+                     className="form-check-input"/>
               Tracking Data
             </Label>
           </FormGroup>
+        </Col>
+        <Col sm={{size: 'auto', offset: 2}}>
+          <FormText color="muted">
+            Select multiple if applicable
+          </FormText>
         </Col>
       </FormGroup>
 
@@ -919,11 +1024,17 @@ const JotForm = (props) => {
         <Col sm={10}>
           <Field
             className='form-control'
-            name='videoSetInformation'
+            name='specificinfo'
             component='textarea'
             type='text'
             placeholder='Clip Specific Information. Examples: Road, tarmac, mountain, ocean, river, tree, gravel, house, villa, modern, futuristic, light, high-rise, bush, grass....'
           />
+          <FormText color="muted">
+            Use only singularly words; mountain, not mountains
+            Separate words with a comma ","
+            i.e.:
+            road, coast, mountain, high rise
+          </FormText>
         </Col>
       </FormGroup>
       <FormGroup row>
@@ -931,7 +1042,7 @@ const JotForm = (props) => {
         <Col sm={10}>
           <Field
             className='form-control'
-            name='generalDescription'
+            name='generaldiscription'
             component='textarea'
             type='text'
             placeholder='Short description of the clip - scenery and action. Ex.: Coastal parking-lot  with a cloudy sky and mountains visible in the background. Trees are moving in the wind, rain in falling.'
@@ -948,9 +1059,40 @@ const JotForm = (props) => {
   )
 }
 
-const JotFormContainer = reduxForm({
-  form: 'jotForm'
+JotForm = reduxForm({
+  form: 'jotForm',
+  enableReinitialize: true // this is needed!!
 })
 (JotForm)
 
-export default JotFormContainer
+// You have to connect() to any reducers that you wish to connect to yourself
+JotForm = connect(
+  (state, props) => ({
+    initialValues: {
+      email: 'test@c.com',
+      yourgiven11: 'test',
+      renderoremotion: 'for CGI-Render',
+      specific: 'Driving',
+      recordingframerate: '24',
+      focallength: '14mm',
+      lensused: 'test',
+      chipsize: 'CMOS 1": 13.2 x 8.8mm',
+      recordingcodec: 'Sony sLog2',
+      masteredto: 'MPEG4',
+      resolution: '4K UHD',
+      audio: 'Yes',
+      motionintheclip: 'Push -in, -out',
+      timeofday: 'Day',
+      weather: 'Sun',
+      contry: 'Austria',
+      cityregion: 'awd',
+      area: 'Downtown',
+      additionalfiles: 'HDR Dome',
+      specificinfo: 'test',
+      generaldiscription: 'test',
+    }
+  })           // bind account loading action creator
+)
+(JotForm)
+
+export default JotForm

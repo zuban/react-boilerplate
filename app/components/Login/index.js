@@ -8,6 +8,7 @@ import {
   FormGroup,
   Label,
   FormText,
+  Col,
 } from 'reactstrap'
 import { Link } from 'react-router'
 import { Field, reduxForm } from 'redux-form/immutable'
@@ -20,23 +21,29 @@ const LoginForm = (props) => {
   } = props
   return (
     <Form onSubmit={handleSubmit}>
-      <FormGroup>
-        <Field
-          className='form-control'
-          name='email'
-          component='input'
-          type='email'
-          placeholder='Your email'
-        />
+      <FormGroup row>
+        <Label sm={2}>Email</Label>
+        <Col sm={10}>
+          <Field
+            className='form-control'
+            name='email'
+            component='input'
+            type='email'
+            placeholder='Your email'
+          />
+        </Col>
       </FormGroup>
-      <FormGroup>
-        <Field
-          className='form-control'
-          name='password'
-          component='input'
-          type='password'
-          placeholder='Your password'
-        />
+      <FormGroup row>
+        <Label sm={2}>Password</Label>
+        <Col sm={10}>
+          <Field
+            className='form-control'
+            name='password'
+            component='input'
+            type='password'
+            placeholder='Your password'
+          />
+        </Col>
       </FormGroup>
       <FormGroup>
         <FormText color='muted'>

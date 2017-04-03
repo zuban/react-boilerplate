@@ -15,15 +15,14 @@ import 'bootstrap/dist/css/bootstrap.css'
 
 const AppWrapper = styled.div`
 `
-
 export function App (props) {
   return (
     <AppWrapper>
       <Helmet
-        titleTemplate="%s - React.js Boilerplate"
-        defaultTitle="React.js Boilerplate"
+        titleTemplate="Maground"
+        defaultTitle="Maground"
         meta={[
-          {name: 'description', content: 'A React.js Boilerplate application'},
+          {name: 'Maground app', content: 'Maground app'},
         ]}
       />
       {React.Children.toArray(props.children)}

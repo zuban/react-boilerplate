@@ -45,8 +45,8 @@ export class LoginContainer extends React.Component { // eslint-disable-line rea
           />
           <Row className="layout-img-container">
           </Row>
-          <Row style={{margin: '0 auto', maxWidth: '866px', marginTop: '50px'}}>
-            <Col style={{padding: '35px 15px 43px 15px', background: '#ededed'}}>
+          <Row style={{margin: '0 auto', maxWidth: '466px', marginTop: '50px'}}>
+            <Col style={{padding: '35px 15px 43px 15px'}}>
               <LoginForm onSubmit={(formArgs) => this.onSubmit(formArgs)}/>
               {
                 this.props.loginState.errorMessage ? <FormGroup>

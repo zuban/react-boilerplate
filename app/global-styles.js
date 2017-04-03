@@ -78,7 +78,7 @@ injectGlobal`
   }
   
   .layout-img-container {
-    background: url(./bg-header.jpg) no-repeat 50% 0;
+    background: url(/jotform/bg-header.jpg) no-repeat 50% 0;
     -webkit-background-size: cover;
     background-size: cover;
     margin-top: 40px;
@@ -89,7 +89,7 @@ injectGlobal`
   footer {
     border-top: 1px solid #acacac;
     padding: 40px 0 0;
-    margin-top: 40px;
+    margin-top: 80px;
   }
   footer .f-box	{
     float: left;

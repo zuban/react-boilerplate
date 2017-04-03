@@ -18,7 +18,7 @@ export default function createRoutes(store) {
 
   return [
     {
-      path: '/',
+      path: '/jotform/',
       name: 'home',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
@@ -40,7 +40,7 @@ export default function createRoutes(store) {
       },
     },
     {
-      path: '/login',
+      path: '/jotform/login',
       name: 'loginContainer',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
@@ -60,7 +60,7 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading)
       },
     }, {
-      path: '/signup',
+      path: '/jotform/signup',
       name: 'signUp',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
@@ -81,6 +81,26 @@ export default function createRoutes(store) {
       },
     },
     {
+      path: '/jotform/form/:id',
+      name: 'form',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/Form/reducer'),
+          import('containers/Form/sagas'),
+          import('containers/Form'),
+        ])
+
+        const renderRoute = loadModule(cb)
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('form', reducer.default)
+          injectSagas(sagas.default)
+          renderRoute(component)
+        })
+
+        importModules.catch(errorLoading)
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {

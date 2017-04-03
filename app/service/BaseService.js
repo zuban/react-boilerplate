@@ -120,10 +120,10 @@ class BaseService {
     })
   }
 
-  getSVG () {
+  getForms () {
     return new Promise((resolve, reject) => {
       let request = this.apiClient
-        .get('hw/services/files/svg')
+        .get('jotform/submissionform/byuserid/1')
       this.storeRequest(request)
       request
         .on('abort', reject)
