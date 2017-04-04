@@ -2,6 +2,7 @@
 import _ from 'lodash'
 import RestApiClient from './RestApiClient'
 import uuid from 'uuid'
+import { browserHistory } from 'react-router'
 import { getCookie, setCookie, deleteCookie } from './cookieHelper'
 
 class BaseService {
@@ -84,6 +85,10 @@ class BaseService {
       if (!error) {
         resolve(response.body)
       } else {
+        if (error.status === 403) {
+          this.logout()
+          browserHistory.push('/jotform/login/')
+        }
         reject({
           status: error && error.status,
           message: _.get(error, 'response.body.error_description') ||
@@ -116,10 +121,33 @@ class BaseService {
     })
   }
 
+  rememberPassword (login) {
+    return new Promise((resolve, reject) => {
+      this.apiClient
+        .post('oauth/uaa/user/password/restore', {login}, {})
+        .end((error, response) => {
+          this.processResponse(error, response).then(resolve, reject)
+        })
+    })
+  }
+
   getForms () {
     return new Promise((resolve, reject) => {
       let request = this.apiClient
-        .get('jotform/submissionform/byuserid/1')
+        .get('jotform/submissionform/')
+      this.storeRequest(request)
+      request
+        .on('abort', reject)
+        .end((error, response) => {
+          this.processResponse(error, response).then(resolve, reject)
+        })
+    })
+  }
+
+  getFormById (id) {
+    return new Promise((resolve, reject) => {
+      let request = this.apiClient
+        .get(`jotform/submissionform/${id}`)
       this.storeRequest(request)
       request
         .on('abort', reject)
@@ -133,83 +161,6 @@ class BaseService {
     return new Promise((resolve, reject) => {
       this.apiClient
         .post('jotform/submissionform/ ', formObj)
-        .end((error, response) => {
-          this.processResponse(error, response).then(resolve, reject)
-        })
-    })
-  }
-
-  getSVGByTagValue (tags, predicate) {
-    if (tags === '' && predicate === '') {
-      return new Promise((resolve, reject) => {
-        let request = this.apiClient
-          .get('hw/services/files/svg')
-        this.storeRequest(request)
-        request
-          .on('abort', reject)
-          .end((error, response) => {
-            this.processResponse(error, response).then(resolve, reject)
-          })
-      })
-    } else if (tags === '' && predicate !== '') {
-      return new Promise((resolve, reject) => {
-        let request = this.apiClient
-          .get('hw/services/files/svg?text=' + predicate)
-        this.storeRequest(request)
-        request
-          .on('abort', reject)
-          .end((error, response) => {
-            this.processResponse(error, response).then(resolve, reject)
-          })
-      })
-    } else {
-      return new Promise((resolve, reject) => {
-        let request = this.apiClient
-          .get('hw/services/files/svg?hashTagValues=' + tags + '&text=' + predicate)
-        this.storeRequest(request)
-        request
-          .on('abort', reject)
-          .end((error, response) => {
-            this.processResponse(error, response).then(resolve, reject)
-          })
-      })
-    }
-  }
-
-  getTags (tags) {
-    if (tags === '') {
-      return new Promise((resolve, reject) => {
-        this.apiClient
-          .get('hw/services/hashTag')
-          .end((error, response) => {
-            this.processResponse(error, response).then(resolve, reject)
-          })
-      })
-    } else {
-      return new Promise((resolve, reject) => {
-        this.apiClient
-          .get('hw/services/hashTag?relatedTagValues=' + tags)
-          .end((error, response) => {
-            this.processResponse(error, response).then(resolve, reject)
-          })
-      })
-    }
-  }
-
-  getSVGbyId (id) {
-    return new Promise((resolve, reject) => {
-      this.apiClient
-        .get('hw/services/files/svg/' + id)
-        .end((error, response) => {
-          this.processResponse(error, response).then(resolve, reject)
-        })
-    })
-  }
-
-  saveTag (obj, id) {
-    return new Promise((resolve, reject) => {
-      this.apiClient
-        .put('hw/services/hashTag/' + id, obj)
         .end((error, response) => {
           this.processResponse(error, response).then(resolve, reject)
         })
@@ -230,26 +181,6 @@ class BaseService {
     return new Promise((resolve, reject) => {
       this.apiClient
         .get('hw/services/user?email=' + getCookie('username'))
-        .end((error, response) => {
-          this.processResponse(error, response).then(resolve, reject)
-        })
-    })
-  }
-
-  createTag (obj) {
-    return new Promise((resolve, reject) => {
-      this.apiClient
-        .post('hw/services/hashTag', obj)
-        .end((error, response) => {
-          this.processResponse(error, response).then(resolve, reject)
-        })
-    })
-  }
-
-  uploadSVG (file) {
-    return new Promise((resolve, reject) => {
-      this.apiClient
-        .post('hw/services/files/svg', file)
         .end((error, response) => {
           this.processResponse(error, response).then(resolve, reject)
         })

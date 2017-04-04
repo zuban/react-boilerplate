@@ -470,12 +470,6 @@ let JotForm = (props) => {
         <Col sm={3}>
           <FormGroup check>
             <Label check>
-              <Field name="motionintheclip;Slide" component="input" type="checkbox" className="form-check-input"/>
-              Slide
-            </Label>
-          </FormGroup>
-          <FormGroup check>
-            <Label check>
               <Field name="motionintheclip;Zoom -in -out" component="input" type="checkbox"
                      className="form-check-input"/>
               Zoom -in -out
@@ -1060,7 +1054,7 @@ let JotForm = (props) => {
 }
 
 JotForm = reduxForm({
-  form: 'jotForm',
+  form: 'jotForm1',
   enableReinitialize: true // this is needed!!
 })
 (JotForm)
@@ -1069,27 +1063,6 @@ JotForm = reduxForm({
 JotForm = connect(
   (state, props) => ({
     initialValues: {
-      email: 'test@c.com',
-      yourgiven11: 'test',
-      renderoremotion: 'for CGI-Render',
-      specific: 'Driving',
-      recordingframerate: '24',
-      focallength: '14mm',
-      lensused: 'test',
-      chipsize: 'CMOS 1": 13.2 x 8.8mm',
-      recordingcodec: 'Sony sLog2',
-      masteredto: 'MPEG4',
-      resolution: '4K UHD',
-      audio: 'Yes',
-      motionintheclip: 'Push -in, -out',
-      timeofday: 'Day',
-      weather: 'Sun',
-      contry: 'Austria',
-      cityregion: 'awd',
-      area: 'Downtown',
-      additionalfiles: 'HDR Dome',
-      specificinfo: 'test',
-      generaldiscription: 'test',
     }
   })           // bind account loading action creator
 )

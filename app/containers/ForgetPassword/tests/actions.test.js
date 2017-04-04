@@ -1,17 +1,18 @@
+
 import {
   defaultAction,
-} from '../actions'
+} from '../actions';
 import {
   DEFAULT_ACTION,
-} from '../constants'
+} from '../constants';
 
-describe('SignUp actions', () => {
+describe('ForgetPassword actions', () => {
   describe('Default Action', () => {
     it('has a type of DEFAULT_ACTION', () => {
       const expected = {
         type: DEFAULT_ACTION,
-      }
+      };
       expect(defaultAction()).toEqual(expected)
-    })
-  })
-})
+    });
+  });
+});

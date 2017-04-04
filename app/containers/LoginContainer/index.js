@@ -11,7 +11,7 @@ import { createStructuredSelector } from 'reselect'
 import makeSelectLoginContainer from './selectors'
 
 import { login, signUp } from './actions'
-
+import { Link } from 'react-router'
 import LoginForm from '../../components/Login'
 import SignUpForm from '../../components/SignUp'
 import {
@@ -26,6 +26,10 @@ import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 
 export class LoginContainer extends React.Component { // eslint-disable-line react/prefer-stateless-function
+
+  // componentDidMount () {
+  //   this.props.checkAuth();
+  // }
 
   onSubmitSignUp (formArgs) {
     let newFormArgs = formArgs.set('roles', ['ROLE_PHOTOGRAPHER'])
@@ -95,6 +99,7 @@ export class LoginContainer extends React.Component { // eslint-disable-line rea
                 <h2 className="headline roboto-bold">You already have an account?</h2>
               </div>
               <LoginForm onSubmit={(formArgs) => this.onSubmitLogin(formArgs)}/>
+              <Link to={'/jotform/forget-password'}>Forgot your password?</Link>
               {
                 signupErrorMessage ? <FormGroup>
                   <Alert color='danger'>

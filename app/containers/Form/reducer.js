@@ -6,15 +6,30 @@
 
 import { fromJS } from 'immutable'
 import {
-  DEFAULT_ACTION,
+  GET_FORM_DATA,
+  GET_FORM_DATA_SUCCESS,
+  GET_FORM_DATA_ERROR,
 } from './constants'
 
-const initialState = fromJS({})
+const initialState = fromJS({
+  loading: true,
+  formData: null,
+})
 
 function formReducer (state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
+    case GET_FORM_DATA:
       return state
+        .set('loading', true)
+        .set('formData', null)
+    case GET_FORM_DATA_SUCCESS:
+      return state
+        .set('loading', false)
+        .set('formData', action.formData)
+    case GET_FORM_DATA_ERROR:
+      return state
+        .set('loading', false)
+        .set('formData', null)
     default:
       return state
   }

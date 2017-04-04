@@ -64,31 +64,11 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading)
       },
-    }, {
-      path: '/jotform/signup',
-      name: 'signUp',
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          import('containers/SignUp/reducer'),
-          import('containers/SignUp/sagas'),
-          import('containers/SignUp'),
-        ])
-
-        const renderRoute = loadModule(cb)
-
-        importModules.then(([reducer, sagas, component]) => {
-          injectReducer('signUp', reducer.default)
-          injectSagas(sagas.default)
-          renderRoute(component)
-        })
-
-        importModules.catch(errorLoading)
-      },
     },
     {
       onEnter: redirectToLogin,
       path: '/jotform/form/:id',
-      name: 'form',
+      name: 'jotform',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           import('containers/Form/reducer'),
@@ -99,7 +79,27 @@ export default function createRoutes(store) {
         const renderRoute = loadModule(cb)
 
         importModules.then(([reducer, sagas, component]) => {
-          injectReducer('form', reducer.default)
+          injectReducer('jotform', reducer.default)
+          injectSagas(sagas.default)
+          renderRoute(component)
+        })
+
+        importModules.catch(errorLoading)
+      },
+    }, {
+      path: '/jotform/forget-password',
+      name: 'forgetPassword',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/ForgetPassword/reducer'),
+          import('containers/ForgetPassword/sagas'),
+          import('containers/ForgetPassword'),
+        ])
+
+        const renderRoute = loadModule(cb)
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('forgetPassword', reducer.default)
           injectSagas(sagas.default)
           renderRoute(component)
         })
