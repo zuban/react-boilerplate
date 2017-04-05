@@ -2,51 +2,57 @@
  * The global state selectors
  */
 
-import { createSelector } from 'reselect';
+import { createSelector } from 'reselect'
 
-const selectGlobal = (state) => state.get('global');
+const selectGlobal = (state) => state.get('global')
 
 const makeSelectCurrentUser = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get('currentUser')
-);
+  (globalState) => globalState.get('userName')
+)
 
 const makeSelectLoading = () => createSelector(
   selectGlobal,
   (globalState) => globalState.get('loading')
-);
+)
 
 const makeSelectError = () => createSelector(
   selectGlobal,
   (globalState) => globalState.get('error')
-);
+)
+
+const makeNotificationSelector = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('notifications')
+)
 
 const makeSelectRepos = () => createSelector(
   selectGlobal,
   (globalState) => globalState.getIn(['userData', 'repositories'])
-);
+)
 
 const makeSelectLocationState = () => {
-  let prevRoutingState;
-  let prevRoutingStateJS;
+  let prevRoutingState
+  let prevRoutingStateJS
 
   return (state) => {
-    const routingState = state.get('route'); // or state.route
+    const routingState = state.get('route') // or state.route
 
     if (!routingState.equals(prevRoutingState)) {
-      prevRoutingState = routingState;
-      prevRoutingStateJS = routingState.toJS();
+      prevRoutingState = routingState
+      prevRoutingStateJS = routingState.toJS()
     }
 
-    return prevRoutingStateJS;
-  };
-};
+    return prevRoutingStateJS
+  }
+}
 
 export {
   selectGlobal,
   makeSelectCurrentUser,
   makeSelectLoading,
   makeSelectError,
+  makeNotificationSelector,
   makeSelectRepos,
   makeSelectLocationState,
-};
+}

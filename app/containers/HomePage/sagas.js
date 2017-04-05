@@ -1,4 +1,4 @@
-import { take, call, fork, put, select, takeLatest } from 'redux-saga/effects'
+import { take, call, cancel, fork, put, select, takeLatest } from 'redux-saga/effects'
 import {
   GET_FORMS,
   GET_FORMS_SUCCESS,
@@ -36,6 +36,7 @@ function* getForms (action) {
     })
   }
   catch (error) {
+
     yield put({type: GET_FORMS_ERROR, error: error.message})
   }
 }

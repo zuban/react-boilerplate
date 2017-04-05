@@ -2,9 +2,15 @@ import React, { Component } from 'react'
 
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap'
 
+import { connect } from 'react-redux'
+
+import { makeSelectCurrentUser } from '../../containers/App/selectors'
+import { createStructuredSelector } from 'reselect'
+import { logout } from '../../containers/App/actions'
+
 import Img from '../Img'
 import { Link } from 'react-router'
-
+import ReactTooltip from 'react-tooltip'
 import Logo from './LogoSquare.jpg'
 class Header extends Component { // eslint-disable-line react/prefer-stateless-function
   constructor (props) {
@@ -23,6 +29,8 @@ class Header extends Component { // eslint-disable-line react/prefer-stateless-f
   }
 
   render () {
+
+    const {currentUser} = this.props
     return (
       <Navbar light toggleable>
         <NavbarToggler right onClick={this.toggle}/>
@@ -61,7 +69,20 @@ class Header extends Component { // eslint-disable-line react/prefer-stateless-f
             <NavItem>
               <NavLink>
                 <Link to={'/jotform/login'}>
-                  <i className="icon-user set icons-grey-light sm"/>
+                  <i className="icon-user set icons-grey-light sm"
+                     data-tip
+                     data-for={'login'}
+                  >
+                    <ReactTooltip
+                      class='badge-tooltip'
+                      delayHide={200}
+                      place='top'
+                      id="login"
+                      type='dark'
+                      effect='solid'>
+                      <span>{currentUser ? currentUser : 'Link to login'}</span>
+                    </ReactTooltip>
+                  </i>
                 </Link>
               </NavLink>
             </NavItem>
@@ -72,4 +93,12 @@ class Header extends Component { // eslint-disable-line react/prefer-stateless-f
   }
 }
 
-export default Header
+const mapStateToProps = createStructuredSelector({
+  currentUser: makeSelectCurrentUser(),
+})
+const mapDispatchToProps = {
+  logout
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header)
+

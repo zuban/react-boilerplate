@@ -1,4 +1,4 @@
-import { take, call, put, select, takeLatest } from 'redux-saga/effects'
+import { take, call, cancel, put, select, takeLatest } from 'redux-saga/effects'
 import { browserHistory } from 'react-router'
 import {
   SENT_LOGIN_DATA,
@@ -37,8 +37,13 @@ function* loginUser (action) {
       action.login,
       action.password
     )
-    yield put({type: LOGIN_SUCCESS})
-    yield put({type: SET_AUTHENTICATED})
+    yield put({
+      type: LOGIN_SUCCESS
+    })
+    yield put({
+      type: SET_AUTHENTICATED,
+      username: action.login
+    })
     browserHistory.push('/jotform/')
   }
   catch (error) {
@@ -50,7 +55,16 @@ function* signUpUser (action) {
     const payload = yield call(service.singup.bind(service),
       action.fields
     )
-    yield put({type: SIGNUP_SUCCESS})
+    const login = yield call(service.login.bind(service),
+      action.fields.get('email'),
+      action.fields.get('password')
+    )
+    yield put({type: LOGIN_SUCCESS})
+    yield put({
+      type: SET_AUTHENTICATED,
+      username: action.fields.get('email')
+    })
+    browserHistory.push('/jotform/')
   }
   catch (error) {
     yield put({type: SIGNUP_FAIL, error: error.message})

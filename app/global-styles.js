@@ -66,6 +66,7 @@ injectGlobal`
     background-position: -21px -135px !important;    
     color: #a8a8a8;
     line-height: 20px;
+    font-style: normal;
   }
   
   .header-font  {  
@@ -216,5 +217,13 @@ injectGlobal`
     box-sizing: border-box;
     padding: 0;
     margin-left: 10px;
+  }
+  
+  .alert-dismissible .close {
+    position: relative;
+    top: -0.95rem;
+    right: -1.25rem;
+    padding: 0.75rem 1.25rem;
+    color: inherit;
   }
 `

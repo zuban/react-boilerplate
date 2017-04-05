@@ -12,3 +12,6 @@
 export const SET_AUTHENTICATED = 'maground/App/SET_AUTHENTICATED'
 export const SET_LOGOUT = 'maground/App/SET_LOGOUT'
 export const DEFAULT_LOCALE = 'en';
+
+export const ADD_NOTIFICATION = 'maground/App/ADD_NOTIFICATION'
+export const REMOVE_NOTIFICATION = 'maground/App/REMOVE_NOTIFICATION'

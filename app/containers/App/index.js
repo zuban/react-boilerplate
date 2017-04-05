@@ -9,10 +9,13 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 import styled from 'styled-components'
-
+import { connect } from 'react-redux'
 import withProgressBar from 'components/ProgressBar'
 import 'bootstrap/dist/css/bootstrap.css'
-
+import Notification from '../../components/Notification'
+import { makeNotificationSelector } from './selectors'
+import { createStructuredSelector } from 'reselect'
+import { removeNotification } from 'actions'
 const AppWrapper = styled.div`
 `
 export function App (props) {
@@ -26,6 +29,7 @@ export function App (props) {
         ]}
       />
       {React.Children.toArray(props.children)}
+      <Notification removeNotification={props.removeNotification} notifications={props.notifications}/>
     </AppWrapper>
   )
 }
@@ -33,5 +37,12 @@ export function App (props) {
 App.propTypes = {
   children: React.PropTypes.node,
 }
+const mapStateToProps = createStructuredSelector({
+  notifications: makeNotificationSelector(),
+})
+const mapDispatchToProps = {
+  removeNotification
+}
 
-export default withProgressBar(App)
+export default withProgressBar(connect(mapStateToProps, mapDispatchToProps)(App))
+

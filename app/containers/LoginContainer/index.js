@@ -95,15 +95,15 @@ export class LoginContainer extends React.Component { // eslint-disable-line rea
               padding: '36px 40px 50px',
               background: '#e0e0e0'
             }}>
-              <div style={{textAlign: 'center', marginBottom: '120px'}}>
+              <div style={{textAlign: 'center', marginBottom: '80px'}}>
                 <h2 className="headline roboto-bold">You already have an account?</h2>
               </div>
               <LoginForm onSubmit={(formArgs) => this.onSubmitLogin(formArgs)}/>
               <Link to={'/jotform/forget-password'}>Forgot your password?</Link>
               {
-                signupErrorMessage ? <FormGroup>
+                loginErrorMessage ? <FormGroup>
                   <Alert color='danger'>
-                    {signupErrorMessage}
+                    {loginErrorMessage}
                   </Alert>
                 </FormGroup> : null
               }

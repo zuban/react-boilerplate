@@ -22,7 +22,7 @@ import Img from '../../components/Img'
 import JotFormImage  from './jotform.jpg'
 import JotFormComponent from '../../components/JotForm'
 import { getFormData, saveFormData, createPdf } from './actions'
-
+import { Link } from 'react-router'
 export class Form extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   componentWillMount () {
@@ -140,6 +140,7 @@ export class Form extends React.PureComponent { // eslint-disable-line react/pre
           />
           <Row className="layout-img-container">
           </Row>
+          <Button color="link"><Link to={'/jotform'}>Back to list</Link></Button>
           <Container className="jotform-container">
             <h2 className="headline">Heading Video Clip Submission Structure & Form</h2>
             <Row className="jotform-row" style={{margin: '0 auto'}}>

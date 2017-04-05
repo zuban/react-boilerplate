@@ -213,7 +213,11 @@ class BaseService {
   }
 
   checkToken () {
-    return !!getCookie('access-token')
+    return getCookie('access-token')
+  }
+
+  getCurrentUser () {
+    return getCookie('username')
   }
 
   logout () {

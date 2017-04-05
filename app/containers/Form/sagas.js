@@ -1,4 +1,4 @@
-import { take, call, put, select, takeLatest } from 'redux-saga/effects'
+import { take, call, cancel, put, select, takeLatest } from 'redux-saga/effects'
 import { browserHistory } from 'react-router'
 import {
   GET_FORM_DATA,
@@ -13,7 +13,10 @@ import {
   CREATE_PDF_SUCCESS,
   CREATE_PDF_ERROR
 } from './constants'
+
+import { ADD_NOTIFICATION } from '../App/constants'
 import { LOCATION_CHANGE } from 'react-router-redux'
+
 import { getService } from '../../service/Service'
 const service = new getService()
 
@@ -85,6 +88,13 @@ function* getForm (action) {
     }
 
     data.formData = payload
+
+    yield put({
+      type: ADD_NOTIFICATION, notification: {
+        header: 'Form saving',
+        message: 'Success'
+      }
+    })
     yield put({
       type: GET_FORM_DATA_SUCCESS,
       formData: data,

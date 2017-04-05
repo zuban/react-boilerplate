@@ -41,14 +41,14 @@ let JotForm = (props) => {
         </FormGroup>
 
         <FormGroup row>
-          <Label sm={2}>First Name</Label>
+          <Label sm={2}>Last Name</Label>
           <Col sm={10}>
             <Field
               className='form-control'
               name='lastName'
               component='input'
               type='text'
-              placeholder='First name'
+              placeholder='Last name'
             />
           </Col>
         </FormGroup>

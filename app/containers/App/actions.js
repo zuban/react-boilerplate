@@ -17,12 +17,20 @@
 
 import {
   SET_AUTHENTICATED,
-  SET_LOGOUT
+  SET_LOGOUT,
+  REMOVE_NOTIFICATION
 } from './constants'
 
 export function setAuthenticated () {
   return {
     type: SET_AUTHENTICATED,
+  }
+}
+
+export function removeNotification (id) {
+  return {
+    type: REMOVE_NOTIFICATION,
+    id
   }
 }
 
