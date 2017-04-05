@@ -1,4 +1,4 @@
-import { take, call, put, select, takeLatest } from 'redux-saga/effects'
+import { take, call, put, select, takeEvery } from 'redux-saga/effects'
 import {
   GET_FORMS,
   GET_FORMS_SUCCESS,
@@ -14,13 +14,11 @@ import { getService } from '../../service/Service'
 const service = new getService()
 
 export function* formsSaga () {
-  const watcher = yield takeLatest(GET_FORMS, getForms)
-  yield take(GET_FORMS)
+  yield takeEvery(GET_FORMS, getForms)
 }
 
 export function* createRecordSaga () {
-  const watcher = yield takeLatest(CREATE_NEW_FORM, createNewRecord)
-  yield take(CREATE_NEW_FORM)
+  yield takeEvery(CREATE_NEW_FORM, createNewRecord)
 }
 
 function* getForms (action) {

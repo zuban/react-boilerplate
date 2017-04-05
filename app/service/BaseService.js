@@ -85,7 +85,7 @@ class BaseService {
       if (!error) {
         resolve(response.body)
       } else {
-        if (error.status === 403) {
+        if (error.status === 401 || error.status === 403) {
           this.logout()
           browserHistory.push('/jotform/login/')
         }
@@ -153,6 +153,31 @@ class BaseService {
         .on('abort', reject)
         .end((error, response) => {
           this.processResponse(error, response).then(resolve, reject)
+        })
+    })
+  }
+
+  saveFormById (data) {
+    return new Promise((resolve, reject) => {
+      this.apiClient
+        .put(`jotform/submissionform/${data.id}`, data)
+        .end((error, response) => {
+          this.processResponse(error, response).then(resolve, reject)
+        })
+    })
+  }
+
+  createPdf (data) {
+    let formData = new FormData()
+
+    Object.keys(data).forEach(item => {
+      formData.append(item, data[item])
+    })
+    return new Promise((resolve, reject) => {
+      this.apiClient
+        .postForm(`jotform/hook/`, formData)
+        .end((error, response) => {
+          resolve(response.text)
         })
     })
   }

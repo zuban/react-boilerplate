@@ -1,4 +1,4 @@
-import { take, call, put, select, takeLatest } from 'redux-saga/effects'
+import { take, call, put, select, takeEvery } from 'redux-saga/effects'
 import { browserHistory } from 'react-router'
 import {
   REMEMBER_PASSWORD,
@@ -10,8 +10,7 @@ import { getService } from '../../service/Service'
 const service = new getService()
 
 export function* rememberSaga () {
-  const watcher = yield takeLatest(REMEMBER_PASSWORD, rememberPassword)
-  yield take(REMEMBER_PASSWORD)
+  yield takeEvery(REMEMBER_PASSWORD, rememberPassword)
 }
 
 function* rememberPassword (action) {

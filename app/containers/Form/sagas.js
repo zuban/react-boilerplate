@@ -7,11 +7,17 @@ import {
 
   SAVE_FORM_DATA,
   SAVE_FORM_DATA_SUCCESS,
-  SAVE_FORM_DATA_ERROR
+  SAVE_FORM_DATA_ERROR,
+
+  CREATE_PDF,
+  CREATE_PDF_SUCCESS,
+  CREATE_PDF_ERROR
 } from './constants'
 
 import { getService } from '../../service/Service'
 const service = new getService()
+
+import makeSelectForm from './selectors'
 
 export function* getFormSaga () {
   const watcher = yield takeLatest(GET_FORM_DATA, getForm)
@@ -23,11 +29,17 @@ export function* saveFormDataSaga () {
   yield take(SAVE_FORM_DATA)
 }
 
+export function* createPdfSaga () {
+  const watcher = yield takeLatest(CREATE_PDF, createPdf)
+  yield take(CREATE_PDF)
+}
+
 function* getForm (action) {
   try {
-    let payload = yield call(service.getFormById.bind(service),
+    let data = yield call(service.getFormById.bind(service),
       action.id,
     )
+    let payload = data.formData
     if (payload.area) {
       let area = payload.area.split(', ')
       delete payload.area
@@ -68,9 +80,11 @@ function* getForm (action) {
         payload[name] = true
       })
     }
+
+    data.formData = payload
     yield put({
       type: GET_FORM_DATA_SUCCESS,
-      formData: payload,
+      formData: data,
     })
   }
   catch (error) {
@@ -78,11 +92,14 @@ function* getForm (action) {
   }
 }
 function* saveFormData (action) {
+  let state = yield select(makeSelectForm())
+  debugger
   try {
+    let data = state.formData
+    data.formData = action.data
     let payload = yield call(service.saveFormById.bind(service),
-      action.data
+      data
     )
-
     yield put({
       type: SAVE_FORM_DATA_SUCCESS,
     })
@@ -91,8 +108,25 @@ function* saveFormData (action) {
     yield put({type: SAVE_FORM_DATA_ERROR, error: error.message})
   }
 }
+function* createPdf (action) {
+  try {
+    let payload = yield call(service.createPdf.bind(service),
+      action.data
+    )
+
+    window.open('data:application/pdf,' + escape(payload))
+    yield put({
+      type: CREATE_PDF_SUCCESS,
+    })
+  }
+  catch (error) {
+    yield put({type: CREATE_PDF_ERROR, error: error.message})
+  }
+}
 
 // All sagas to be loaded
 export default [
   getFormSaga,
+  saveFormDataSaga,
+  createPdfSaga,
 ]
