@@ -5,12 +5,14 @@ import {
   REMEMBER_PASSWORD_SUCCESS,
   REMEMBER_PASSWORD_ERROR,
 } from './constants'
-
+import { LOCATION_CHANGE } from 'react-router-redux'
 import { getService } from '../../service/Service'
 const service = new getService()
 
 export function* rememberSaga () {
-  yield takeEvery(REMEMBER_PASSWORD, rememberPassword)
+  const fetchWatcher = yield takeLatest(REMEMBER_PASSWORD, rememberPassword)
+  yield take(LOCATION_CHANGE)
+  yield cancel(fetchWatcher)
 }
 
 function* rememberPassword (action) {

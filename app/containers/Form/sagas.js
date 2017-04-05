@@ -13,25 +13,28 @@ import {
   CREATE_PDF_SUCCESS,
   CREATE_PDF_ERROR
 } from './constants'
-
+import { LOCATION_CHANGE } from 'react-router-redux'
 import { getService } from '../../service/Service'
 const service = new getService()
 
 import makeSelectForm from './selectors'
 
 export function* getFormSaga () {
-  const watcher = yield takeLatest(GET_FORM_DATA, getForm)
-  yield take(GET_FORM_DATA)
+  const fetchWatcher = yield takeLatest(GET_FORM_DATA, getForm)
+  yield take(LOCATION_CHANGE)
+  yield cancel(fetchWatcher)
 }
 
 export function* saveFormDataSaga () {
-  const watcher = yield takeLatest(SAVE_FORM_DATA, saveFormData)
-  yield take(SAVE_FORM_DATA)
+  const fetchWatcher = yield takeLatest(SAVE_FORM_DATA, saveFormData)
+  yield take(LOCATION_CHANGE)
+  yield cancel(fetchWatcher)
 }
 
 export function* createPdfSaga () {
-  const watcher = yield takeLatest(CREATE_PDF, createPdf)
-  yield take(CREATE_PDF)
+  const fetchWatcher = yield takeLatest(CREATE_PDF, createPdf)
+  yield take(LOCATION_CHANGE)
+  yield cancel(fetchWatcher)
 }
 
 function* getForm (action) {

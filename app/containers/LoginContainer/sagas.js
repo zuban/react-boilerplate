@@ -1,4 +1,4 @@
-import { take, call, put, select, takeEvery } from 'redux-saga/effects'
+import { take, call, put, select, takeLatest } from 'redux-saga/effects'
 import { browserHistory } from 'react-router'
 import {
   SENT_LOGIN_DATA,
@@ -14,16 +14,20 @@ import {
 import {
   SET_AUTHENTICATED
 } from '../App/constants'
-
+import { LOCATION_CHANGE } from 'react-router-redux'
 import { getService } from '../../service/Service'
 const service = new getService()
 
 export function* loginSaga () {
-  yield takeEvery(SENT_LOGIN_DATA, loginUser)
+  const fetchWatcher = yield takeLatest(SENT_LOGIN_DATA, loginUser)
+  yield take(LOCATION_CHANGE)
+  yield cancel(fetchWatcher)
 }
 
 export function* signUpSaga () {
-  yield takeEvery(SENT_SIGNUP_DATA, signUpUser)
+  const fetchWatcher = yield takeLatest(SENT_SIGNUP_DATA, signUpUser)
+  yield take(LOCATION_CHANGE)
+  yield cancel(fetchWatcher)
 }
 
 function* loginUser (action) {

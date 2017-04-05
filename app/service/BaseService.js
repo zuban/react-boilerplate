@@ -14,7 +14,7 @@ class BaseService {
     if (getCookie('access-token')) {
       this.token = getCookie('access-token')
     }
-    this.entryUrl = 'https://192.168.178.61/'//window.location.origin
+    this.entryUrl = window.location.origin + '/'
     this.apiClient = new RestApiClient({
       entryUrl: this.entryUrl,
       requestHeaders: this.requestHeaders,

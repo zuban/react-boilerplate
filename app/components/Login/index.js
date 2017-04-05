@@ -25,6 +25,7 @@ const LoginForm = (props) => {
         <Label sm={4}>Email</Label>
         <Col sm={8}>
           <Field
+            required
             className='form-control'
             name='login'
             component='input'
@@ -37,6 +38,7 @@ const LoginForm = (props) => {
         <Label sm={4}>Password</Label>
         <Col sm={8}>
           <Field
+            required
             className='form-control'
             name='password'
             component='input'
