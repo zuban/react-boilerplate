@@ -15,6 +15,7 @@ import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form/immutable'
 import { fromJS } from 'immutable'
+import RequiredField from '../RequiredField'
 
 let JotForm = (props) => {
   const {
@@ -28,9 +29,12 @@ let JotForm = (props) => {
     <div>
       <Form style={{marginTop: '50px'}} onSubmit={handleSubmit}>
         <FormGroup row>
-          <Label sm={2}>First name</Label>
+          <Label sm={2}>First name<RequiredField/>
+          </Label>
+
           <Col sm={10}>
             <Field
+              required
               className='form-control'
               name='firstName'
               component='input'
@@ -41,9 +45,10 @@ let JotForm = (props) => {
         </FormGroup>
 
         <FormGroup row>
-          <Label sm={2}>Last Name</Label>
+          <Label sm={2}>Last Name<RequiredField/></Label>
           <Col sm={10}>
             <Field
+              required
               className='form-control'
               name='lastName'
               component='input'
@@ -54,9 +59,10 @@ let JotForm = (props) => {
         </FormGroup>
         <FormGroup row>
           <Label sm={2}>
-            Email</Label>
+            Email<RequiredField/></Label>
           <Col sm={10}>
             <Field
+              required
               className='form-control'
               name='email'
               component='input'
@@ -68,9 +74,10 @@ let JotForm = (props) => {
 
         <FormGroup row>
           <Label sm={2}>
-            MAGROUND Shortcut</Label>
+            MAGROUND Shortcut<RequiredField/></Label>
           <Col sm={10}>
             <Field
+              required
               className='form-control'
               name='yourgiven11'
               component='input'
@@ -97,19 +104,29 @@ let JotForm = (props) => {
           </Col>
         </FormGroup>
         <FormGroup row>
-          <Label sm={2}>Select if clip is:</Label>
+          <Label sm={2}>Select if clip is:<RequiredField/></Label>
           <Col sm={10}>
             <FormGroup check>
               <Label check>
-                <Field name="renderoremotion" className="form-check-label" component='input' type="radio"
-                       value="for CGI-Render"/>
+                <Field
+                  required
+                  name="renderoremotion"
+                  className="form-check-label"
+                  component='input'
+                  type="radio"
+                  value="for CGI-Render"/>
                 for CGI-Render
               </Label>
             </FormGroup>
             <FormGroup check>
               <Label check>
-                <Field name="renderoremotion" className="form-check-label" component='input' type="radio"
-                       value="for Storytelling, emotion"/>
+                <Field
+                  required
+                  name="renderoremotion"
+                  className="form-check-label"
+                  component='input'
+                  type="radio"
+                  value="for Storytelling, emotion"/>
                 for Storytelling, emotion
               </Label>
             </FormGroup>
@@ -193,9 +210,13 @@ let JotForm = (props) => {
           </Col>
         </FormGroup>
         <FormGroup row>
-          <Label sm={2}>Recording Framerate</Label>
+          <Label sm={2}>Recording Framerate<RequiredField/></Label>
           <Col sm={10}>
-            <Field name="recordingframerate" className="form-control" component='select'>
+            <Field
+              required
+              name="recordingframerate"
+              className="form-control"
+              component='select'>
               <option value=""></option>
               <option value="23.976"> 23.976</option>
               <option value="24"> 24</option>
@@ -226,9 +247,13 @@ let JotForm = (props) => {
           </Col>
         </FormGroup>
         <FormGroup row>
-          <Label sm={2}>Focal Length</Label>
+          <Label sm={2}>Focal Length<RequiredField/></Label>
           <Col sm={10}>
-            <Field name="focallength" className="form-control" component='select'>
+            <Field
+              required
+              name="focallength"
+              className="form-control"
+              component='select'>
               <option value=""></option>
               <option value="10mm"> 10mm</option>
               <option value="12mm"> 12mm</option>
@@ -275,9 +300,12 @@ let JotForm = (props) => {
           </Col>
         </FormGroup>
         <FormGroup row>
-          <Label sm={2}>Chip Size </Label>
+          <Label sm={2}>Chip Size<RequiredField/> </Label>
           <Col sm={10}>
-            <Field name="chipsize" className="form-control" component='select'>
+            <Field required
+                   name="chipsize"
+                   className="form-control"
+                   component='select'>
               <option value=""></option>
               <option value="GoPro 2K ; 04.57x03.43mm"> GoPro 2K ; 04.57x03.43mm</option>
               <option value="CMOS 1/2.3&quot;: 6.17 x 4.55mm"> CMOS 1/2.3": 6.17 x 4.55mm</option>
@@ -318,9 +346,13 @@ let JotForm = (props) => {
           </Col>
         </FormGroup>
         <FormGroup row>
-          <Label sm={2}>Recording Codec</Label>
+          <Label sm={2}>Recording Codec<RequiredField/></Label>
           <Col sm={10}>
-            <Field name="recordingcodec" className="form-control" component='select'>
+            <Field
+              required
+              name="recordingcodec"
+              className="form-control"
+              component='select'>
               <option value=""></option>
               <option value="H.264"> H.264</option>
               <option value="H.265"> H.265</option>
@@ -345,9 +377,12 @@ let JotForm = (props) => {
           </Col>
         </FormGroup>
         <FormGroup row>
-          <Label sm={2}>Mastered to </Label>
+          <Label sm={2}>Mastered to<RequiredField/> </Label>
           <Col sm={10}>
-            <Field name="masteredto" className="form-control" component='select'>
+            <Field required
+                   name="masteredto"
+                   className="form-control"
+                   component='select'>
               <option value=""></option>
               <option value="H.264"> H.264</option>
               <option value="MPEG2"> MPEG2</option>
@@ -365,9 +400,12 @@ let JotForm = (props) => {
           </Col>
         </FormGroup>
         <FormGroup row>
-          <Label sm={2}>Resolution</Label>
+          <Label sm={2}>Resolution<RequiredField/></Label>
           <Col sm={10}>
-            <Field name="resolution" className="form-control" component='select'>
+            <Field required
+                   name="resolution"
+                   className="form-control"
+                   component='select'>
               <option value=""></option>
               <option value="8K "> 8K</option>
               <option value="6K"> 6K</option>
@@ -387,29 +425,44 @@ let JotForm = (props) => {
           </Col>
         </FormGroup>
         <FormGroup row>
-          <Label sm={2}>Audio</Label>
+          <Label sm={2}>Audio<RequiredField/></Label>
           <Col sm={10}>
             <FormGroup check>
               <Label check>
-                <Field name="audio" className="form-check-label" component='input' type="radio" value="Yes"/>
+                <Field required
+                       name="audio"
+                       className="form-check-label"
+                       component='input'
+                       type="radio"
+                       value="Yes"/>
                 Yes
               </Label>
             </FormGroup>
             <FormGroup check>
               <Label check>
-                <Field name="audio" className="form-check-label" component='input' type="radio" value="No"/>
+                <Field
+                  required
+                  name="audio"
+                  className="form-check-label"
+                  component='input'
+                  type="radio"
+                  value="No"/>
                 No
               </Label>
             </FormGroup>
           </Col>
         </FormGroup>
 
-        <FormGroup row>
-          <Label sm={2}>Motion in the Clip (Multiple Choice)</Label>
+        <FormGroup row required>
+          <Label sm={2}>Motion in the Clip (Multiple Choice)<RequiredField/></Label>
           <Col sm={3}>
             <FormGroup check>
               <Label check>
-                <Field name="motionintheclip;Slide" component="input" type="checkbox" className="form-check-input"/>
+                <Field
+                  name="motionintheclip;Slide"
+                  component="input"
+                  type="checkbox"
+                  className="form-check-input"/>
                 Slide
               </Label>
             </FormGroup>
@@ -504,8 +557,8 @@ let JotForm = (props) => {
           </Col>
         </FormGroup>
 
-        <FormGroup row>
-          <Label sm={2}>Camera Direction (Multiple Choice)</Label>
+        <FormGroup row required>
+          <Label sm={2}>Camera Direction (Multiple Choice)<RequiredField/></Label>
           <Col sm={3}>
             <FormGroup check>
               <Label check>
@@ -573,18 +626,20 @@ let JotForm = (props) => {
         </FormGroup>
 
         <FormGroup row>
-          <Label sm={2}>Time of Day </Label>
+          <Label sm={2}>Time of Day<RequiredField/> </Label>
           <Col sm={3}>
             <FormGroup check>
               <Label check>
-                <Field name="timeofday" className="form-check-label" component='input' type="radio" value="Day"/>
+                <Field required name="timeofday" className="form-check-label" component='input' type="radio"
+                       value="Day"/>
                 Day
               </Label>
             </FormGroup>
             <FormGroup check>
               <Label check>
 
-                <Field name="timeofday" className="form-check-label" component='input' type="radio" value="Midnight"/>
+                <Field required name="timeofday" className="form-check-label" component='input' type="radio"
+                       value="Midnight"/>
                 Midnight
               </Label>
             </FormGroup>
@@ -592,13 +647,15 @@ let JotForm = (props) => {
           <Col sm={3}>
             <FormGroup check>
               <Label check>
-                <Field name="timeofday" className="form-check-label" component='input' type="radio" value="Night"/>
+                <Field required name="timeofday" className="form-check-label" component='input' type="radio"
+                       value="Night"/>
                 Night
               </Label>
             </FormGroup>
             <FormGroup check>
               <Label check>
-                <Field name="timeofday" className="form-check-label" component='input' type="radio" value="Dusk"/>
+                <Field required name="timeofday" className="form-check-label" component='input' type="radio"
+                       value="Dusk"/>
                 Dusk
               </Label>
             </FormGroup>
@@ -606,21 +663,23 @@ let JotForm = (props) => {
           <Col sm={3}>
             <FormGroup check>
               <Label check>
-                <Field name="timeofday" className="form-check-label" component='input' type="radio" value="Noon"/>
+                <Field required name="timeofday" className="form-check-label" component='input' type="radio"
+                       value="Noon"/>
                 Noon
               </Label>
             </FormGroup>
             <FormGroup check>
               <Label check>
-                <Field name="timeofday" className="form-check-label" component='input' type="radio" value="Dawn"/>
+                <Field required name="timeofday" className="form-check-label" component='input' type="radio"
+                       value="Dawn"/>
                 Dawn
               </Label>
             </FormGroup>
           </Col>
         </FormGroup>
 
-        <FormGroup row>
-          <Label sm={2}>Weather (multiple choice) </Label>
+        <FormGroup row required>
+          <Label sm={2}>Weather (multiple choice)<RequiredField/> </Label>
           <Col sm={3}>
             <FormGroup check>
               <Label check>
@@ -690,9 +749,13 @@ let JotForm = (props) => {
         </FormGroup>
 
         <FormGroup row>
-          <Label sm={2}>Country</Label>
+          <Label sm={2}>Country<RequiredField/></Label>
           <Col sm={10}>
-            <Field name="contry" className="form-control" component='select'>
+            <Field
+              required
+              name="contry"
+              className="form-control"
+              component='select'>
               <option value=""></option>
               <option value="United States"> United States</option>
               <option value="Canada"> Canada</option>
@@ -895,9 +958,10 @@ let JotForm = (props) => {
         </FormGroup>
 
         <FormGroup row>
-          <Label sm={2}>City / Region</Label>
+          <Label sm={2}>City / Region<RequiredField/></Label>
           <Col sm={10}>
             <Field
+              required
               className='form-control'
               name='cityregion'
               component='input'
@@ -910,8 +974,8 @@ let JotForm = (props) => {
           </Col>
         </FormGroup>
 
-        <FormGroup row>
-          <Label sm={2}>Area (multiple choice) </Label>
+        <FormGroup row required>
+          <Label sm={2}>Area (multiple choice)<RequiredField/> </Label>
           <Col sm={3}>
             <FormGroup check>
               <Label check>
@@ -1023,9 +1087,10 @@ let JotForm = (props) => {
         </FormGroup>
 
         <FormGroup row>
-          <Label sm={2}>Video-Set specific information</Label>
+          <Label sm={2}>Video-Set specific information<RequiredField/></Label>
           <Col sm={10}>
             <Field
+              required
               className='form-control'
               name='specificinfo'
               component='textarea'
@@ -1041,9 +1106,10 @@ let JotForm = (props) => {
           </Col>
         </FormGroup>
         <FormGroup row>
-          <Label sm={2}>General Description of the scenery</Label>
+          <Label sm={2}>General Description of the scenery<RequiredField/></Label>
           <Col sm={10}>
             <Field
+              required
               className='form-control'
               name='generaldiscription'
               component='textarea'

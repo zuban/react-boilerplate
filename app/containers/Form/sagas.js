@@ -88,13 +88,6 @@ function* getForm (action) {
     }
 
     data.formData = payload
-
-    yield put({
-      type: ADD_NOTIFICATION, notification: {
-        header: 'Form saving',
-        message: 'Success'
-      }
-    })
     yield put({
       type: GET_FORM_DATA_SUCCESS,
       formData: data,
@@ -114,6 +107,12 @@ function* saveFormData (action) {
       data
     )
     yield put({
+      type: ADD_NOTIFICATION, notification: {
+        header: 'Form saving',
+        message: 'Success'
+      }
+    })
+    yield put({
       type: SAVE_FORM_DATA_SUCCESS,
     })
   }
@@ -127,7 +126,19 @@ function* createPdf (action) {
       action.data
     )
 
-    window.open('data:application/pdf,' + escape(payload))
+    let pom = document.createElement('a')
+    pom.setAttribute('href', 'data:application/pdf;charset=utf-8,' + encodeURIComponent(payload))
+    pom.setAttribute('download', 'maground.pdf')
+
+    if (document.createEvent) {
+      let event = document.createEvent('MouseEvents')
+      event.initEvent('click', true, true)
+      pom.dispatchEvent(event)
+    }
+    else {
+      pom.click()
+    }
+
     yield put({
       type: CREATE_PDF_SUCCESS,
     })

@@ -85,6 +85,7 @@ class BaseService {
       if (!error) {
         resolve(response.body)
       } else {
+        debugger
         if (error.status === 401 || error.status === 403) {
           this.logout()
           browserHistory.push('/jotform/login/')

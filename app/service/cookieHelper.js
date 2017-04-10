@@ -31,7 +31,7 @@ export const setCookie = (name, value, options) => {
 }
 
 export const deleteCookie = (name) => {
-  this.setCookie(name, '', {
+  setCookie(name, '', {
     expires: -1
   })
 }
