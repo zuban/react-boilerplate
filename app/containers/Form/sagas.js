@@ -126,19 +126,6 @@ function* createPdf (action) {
       action.data
     )
 
-    let pom = document.createElement('a')
-    pom.setAttribute('href', 'data:application/pdf;charset=utf-8,' + encodeURIComponent(payload))
-    pom.setAttribute('download', 'maground.pdf')
-
-    if (document.createEvent) {
-      let event = document.createEvent('MouseEvents')
-      event.initEvent('click', true, true)
-      pom.dispatchEvent(event)
-    }
-    else {
-      pom.click()
-    }
-
     yield put({
       type: CREATE_PDF_SUCCESS,
     })

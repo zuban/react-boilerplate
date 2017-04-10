@@ -73,7 +73,19 @@ export class Form extends React.PureComponent { // eslint-disable-line react/pre
         obj[key] = t[key]
       }
     })
-    this.props.createPdf(obj)
+    // this.props.createPdf(obj)
+
+    let form = document.createElement('form')
+    form.method = 'POST'
+    form.action = '/jotform/hook'
+    Object.keys(obj).forEach(key => {
+      let element = document.createElement('input')
+      element.value = obj[key]
+      element.name = key
+      form.appendChild(element)
+    })
+    document.body.appendChild(form)
+    form.submit()
   }
 
   onSubmit (props) {

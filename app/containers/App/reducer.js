@@ -42,7 +42,7 @@ function appReducer (state = initialState, action) {
         .set('isAuthenticated', false)
         .set('userName', null)
     case ADD_NOTIFICATION: {
-      let notifications = state.get('notifications').toJS()
+      let notifications = state.get('notifications')
       let notification = action.notification
       notification.id = uuid.v4()
 
