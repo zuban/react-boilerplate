@@ -87,7 +87,7 @@ export class LoginContainer extends React.Component { // eslint-disable-line rea
                 fetching ? 'Loading...' : forms.map(item => {
                   return <tr key={item.id}>
                     <th scope="row">-</th>
-                    <td><Link to={`/jotform/form/${item.id}`}>{item.name}</Link>
+                    <td><Link to={`/video-submission-form/form/${item.id}`}>{item.name}</Link>
                     </td>
                     <td>---</td>
                     <td>---</td>

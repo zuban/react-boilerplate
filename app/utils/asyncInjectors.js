@@ -87,7 +87,7 @@ export function redirectToLogin (store) {
     console.log(store)
     if (!store.getState().getIn(['global', 'isAuthenticated'])) {
       replace({
-        pathname: '/jotform/login',
+        pathname: '/video-submission-form/login',
         state: {nextPathname: nextState.location.pathname}
       })
     }

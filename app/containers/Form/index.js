@@ -77,7 +77,7 @@ export class Form extends React.PureComponent { // eslint-disable-line react/pre
 
     let form = document.createElement('form')
     form.method = 'POST'
-    form.action = '/jotform/hook'
+    form.action = '/video-submission-form/hook'
     Object.keys(obj).forEach(key => {
       let element = document.createElement('input')
       element.value = obj[key]
@@ -153,7 +153,7 @@ export class Form extends React.PureComponent { // eslint-disable-line react/pre
           />
           <Row className="layout-img-container">
           </Row>
-          <Button color="link"><Link to={'/jotform/'}>Back to list</Link></Button>
+          <Button color="link"><Link to={'/video-submission-form/'}>Back to list</Link></Button>
           <Container className="jotform-container">
             <h2 className="headline">Heading Video Clip Submission Structure & Form</h2>
             <Row className="jotform-row" style={{margin: '0 auto'}}>

@@ -48,7 +48,7 @@ function* createNewRecord (action) {
       type: CREATE_NEW_FORM_SUCCESS,
       id,
     })
-    browserHistory.push(`/jotform/form/${id}`)
+    browserHistory.push(`/video-submission-form/form/${id}`)
   }
   catch (error) {
     yield put({type: CREATE_NEW_FORM_ERROR, error: error.message})

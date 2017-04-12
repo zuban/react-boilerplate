@@ -88,7 +88,7 @@ class BaseService {
         debugger
         if (error.status === 401 || error.status === 403) {
           this.logout()
-          browserHistory.push('/jotform/login/')
+          browserHistory.push('/video-submission-form/login/')
         }
         reject({
           status: error && error.status,
@@ -135,7 +135,7 @@ class BaseService {
   getForms () {
     return new Promise((resolve, reject) => {
       let request = this.apiClient
-        .get('jotform/submissionform/')
+        .get('video-submission-form/submissionform/')
       this.storeRequest(request)
       request
         .on('abort', reject)
@@ -148,7 +148,7 @@ class BaseService {
   getFormById (id) {
     return new Promise((resolve, reject) => {
       let request = this.apiClient
-        .get(`jotform/submissionform/${id}`)
+        .get(`video-submission-form/submissionform/${id}`)
       this.storeRequest(request)
       request
         .on('abort', reject)
@@ -161,7 +161,7 @@ class BaseService {
   saveFormById (data) {
     return new Promise((resolve, reject) => {
       this.apiClient
-        .put(`jotform/submissionform/${data.id}`, data)
+        .put(`video-submission-form/submissionform/${data.id}`, data)
         .end((error, response) => {
           this.processResponse(error, response).then(resolve, reject)
         })
@@ -176,7 +176,7 @@ class BaseService {
     })
     return new Promise((resolve, reject) => {
       this.apiClient
-        .postForm(`jotform/hook/`, formData)
+        .postForm(`video-submission-form/hook/`, formData)
         .end((error, response) => {
           resolve(response.text)
         })
@@ -186,7 +186,7 @@ class BaseService {
   createNewRecord (formObj) {
     return new Promise((resolve, reject) => {
       this.apiClient
-        .post('jotform/submissionform/ ', formObj)
+        .post('video-submission-form/submissionform/ ', formObj)
         .end((error, response) => {
           this.processResponse(error, response).then(resolve, reject)
         })

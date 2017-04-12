@@ -58,7 +58,7 @@ injectGlobal`
     }
     
   .icons-grey-light {
-    background: url(/jotform/icons/icons_set_grey_light.png) no-repeat;
+    background: url(/video-submission-form/icons/icons_set_grey_light.png) no-repeat;
     background-size: 125px auto;
     height: 25px;
     width: 25px;
@@ -79,7 +79,7 @@ injectGlobal`
   }
   
   .layout-img-container {
-    background: url(/jotform/bg-header.jpg) no-repeat 50% 0;
+    background: url(/video-submission-form/bg-header.jpg) no-repeat 50% 0;
     -webkit-background-size: cover;
     background-size: cover;
     margin-top: 40px;

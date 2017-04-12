@@ -99,7 +99,7 @@ export class LoginContainer extends React.Component { // eslint-disable-line rea
                 <h2 className="headline roboto-bold">You already have an account?</h2>
               </div>
               <LoginForm onSubmit={(formArgs) => this.onSubmitLogin(formArgs)}/>
-              <Link to={'/jotform/forget-password'}>Forgot your password?</Link>
+              <Link to={'/video-submission-form/forget-password'}>Forgot your password?</Link>
               {
                 loginErrorMessage ? <FormGroup>
                   <Alert color='danger'>

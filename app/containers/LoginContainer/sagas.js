@@ -44,7 +44,7 @@ function* loginUser (action) {
       type: SET_AUTHENTICATED,
       username: action.login
     })
-    browserHistory.push('/jotform/')
+    browserHistory.push('/video-submission-form/')
   }
   catch (error) {
     yield put({type: LOGIN_FAIL, error: error.message})
@@ -64,7 +64,7 @@ function* signUpUser (action) {
       type: SET_AUTHENTICATED,
       username: action.fields.get('email')
     })
-    browserHistory.push('/jotform/')
+    browserHistory.push('/video-submission-form/')
   }
   catch (error) {
     yield put({type: SIGNUP_FAIL, error: error.message})

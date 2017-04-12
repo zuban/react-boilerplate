@@ -19,7 +19,7 @@ export function requireAuthentication (Component) {
     checkAuth () {
       if (!this.props.isAuthenticated && !this.props.loading) {
         let redirectAfterLogin = this.props.location.pathname
-        browserHistory.push(`/jotform/login?next=${redirectAfterLogin}`)
+        browserHistory.push(`/video-submission-form/login?next=${redirectAfterLogin}`)
       }
     }
 

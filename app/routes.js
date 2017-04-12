@@ -23,7 +23,7 @@ export default function createRoutes(store) {
   return [
     {
       onEnter: redirectToLogin,
-      path: '/jotform/',
+      path: '/video-submission-form/',
       name: 'home',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
@@ -45,7 +45,7 @@ export default function createRoutes(store) {
       },
     },
     {
-      path: '/jotform/login',
+      path: '/video-submission-form/login',
       name: 'loginContainer',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
@@ -67,7 +67,7 @@ export default function createRoutes(store) {
     },
     {
       onEnter: redirectToLogin,
-      path: '/jotform/form/:id',
+      path: '/video-submission-form/form/:id',
       name: 'jotform',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
@@ -87,7 +87,7 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading)
       },
     }, {
-      path: '/jotform/forget-password',
+      path: '/video-submission-form/forget-password',
       name: 'forgetPassword',
       getComponent(nextState, cb) {
         const importModules = Promise.all([

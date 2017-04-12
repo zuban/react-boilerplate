@@ -1,14 +1,14 @@
-post /jotform/submissionform/ Создание формы
+post /video-submission-form/submissionform/ Создание формы
 payload: {
   "formData":{"3":"3"},
   "name": "From name"
 }
 
-get /jotform/submissionform/ Запрос всех форм
+get /video-submission-form/submissionform/ Запрос всех форм
 
-delete /jotform/submissionform/:id Удаление формы
+delete /video-submission-form/submissionform/:id Удаление формы
 
-put /jotform/submissionform/:id Обновление формы
+put /video-submission-form/submissionform/:id Обновление формы
 payload: {
   "formData":{"3":"3"},
   "name": "From name"
