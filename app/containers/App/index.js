@@ -10,12 +10,12 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import withProgressBar from 'components/ProgressBar'
+import withProgressBar from '../../components/ProgressBar'
 import 'bootstrap/dist/css/bootstrap.css'
 import Notification from '../../components/Notification'
 import { makeNotificationSelector } from './selectors'
 import { createStructuredSelector } from 'reselect'
-import { removeNotification } from 'actions'
+import { removeNotification } from './actions'
 const AppWrapper = styled.div`
 `
 export function App (props) {

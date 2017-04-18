@@ -226,4 +226,8 @@ injectGlobal`
     padding: 0.75rem 1.25rem;
     color: inherit;
   }
+  
+  .validation-error {
+      border-color: #d9534f;
+  }
 `

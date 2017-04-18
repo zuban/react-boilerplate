@@ -8,22 +8,19 @@ import {
   FormGroup,
   Label,
   Col,
-  Input,
   FormText
 } from 'reactstrap'
-import { Link } from 'react-router'
-import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form/immutable'
-import { fromJS } from 'immutable'
 import RequiredField from '../RequiredField'
+import { Link } from 'react-router'
 
 let JotForm = (props) => {
   const {
     handleSubmit,
     pristine,
     submitting,
-    fields,
-    generatePdf
+    generatePdf,
+    valid
   } = props
   return (
     <div>
@@ -1123,16 +1120,18 @@ let JotForm = (props) => {
             color='primary'
             name="submit" value="submit"
             disabled={pristine || submitting}>Save</Button>{' '}
+          <Button
+            color='primary'
+            onClick={
+              handleSubmit(data => {
+                generatePdf(data)
+              })}
+          >Generate pdf</Button>{' '}
+          <Button color="link"><Link to={'/video-submission-form/'}>Back to list</Link></Button>
         </FormGroup>
 
       </Form>
-      <Button
-        color='primary'
-        onClick={
-          handleSubmit(data => {
-            generatePdf(data)
-          })}
-      >Generate pdf</Button>{' '}
+
     </div>
   )
 }

@@ -13,130 +13,50 @@ import {
   Container,
   Row,
   Col,
-  Button
+  Button,
+  FormFeedback
 } from 'reactstrap'
 
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
-
+import { download } from '../../helpers/downloadHelper'
 import Img from '../../components/Img'
 import JotFormImage  from './jotform.jpg'
 import JotFormComponent from '../../components/JotForm'
-import { getFormData, saveFormData, createPdf } from './actions'
+import { getFormData, saveFormData, createPdf, setErrorMessage } from './actions'
 import { Link } from 'react-router'
-export class Form extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+
+import { getFormObject, validateFields } from './formHelper'
+export class Form extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   componentWillMount () {
     this.props.getFormData(this.props.params.id)
   }
 
   generatePdf (props) {
-    let t = props.toJS()
-    let obj = {}
-    Object.keys(t).forEach(key => {
-      if (key.startsWith('area')) {
-        let tempKey = key.split(';')
-        if (obj[tempKey[0]]) {
-          obj[tempKey[0]] += ', ' + tempKey[1]
-        } else {
-          obj[tempKey[0]] = tempKey[1]
-        }
-      } else if (key.startsWith('motionintheclip')) {
-        let tempKey = key.split(';')
-        if (obj[tempKey[0]]) {
-          obj[tempKey[0]] += ', ' + tempKey[1]
-        } else {
-          obj[tempKey[0]] = tempKey[1]
-        }
-      } else if (key.startsWith('cameradirection')) {
-        let tempKey = key.split(';')
-        if (obj[tempKey[0]]) {
-          obj[tempKey[0]] += ', ' + tempKey[1]
-        } else {
-          obj[tempKey[0]] = tempKey[1]
-        }
-      } else if (key.startsWith('weather')) {
-        let tempKey = key.split(';')
-        if (obj[tempKey[0]]) {
-          obj[tempKey[0]] += ', ' + tempKey[1]
-        } else {
-          obj[tempKey[0]] = tempKey[1]
-        }
-      } else if (key.startsWith('additionalfiles')) {
-        let tempKey = key.split(';')
-        if (obj[tempKey[0]]) {
-          obj[tempKey[0]] += ', ' + tempKey[1]
-        } else {
-          obj[tempKey[0]] = tempKey[1]
-        }
-      } else {
-        obj[key] = t[key]
-      }
-    })
-    // this.props.createPdf(obj)
-
-    let form = document.createElement('form')
-    form.method = 'POST'
-    form.action = '/video-submission-form/hook'
-    Object.keys(obj).forEach(key => {
-      let element = document.createElement('input')
-      element.value = obj[key]
-      element.name = key
-      form.appendChild(element)
-    })
-    document.body.appendChild(form)
-    form.submit()
+    let obj = getFormObject(props.toJS())
+    if (validateFields(obj)) {
+      this.props.setErrorMessage('Please, fill out all mandatory fields')
+    } else {
+      this.props.saveFormData(obj)
+      download('/video-submission-form/hook', obj)
+    }
   }
 
   onSubmit (props) {
-    let t = props.toJS()
-    let obj = {}
-    Object.keys(t).forEach(key => {
-      if (key.startsWith('area')) {
-        let tempKey = key.split(';')
-        if (obj[tempKey[0]]) {
-          obj[tempKey[0]] += ', ' + tempKey[1]
-        } else {
-          obj[tempKey[0]] = tempKey[1]
-        }
-      } else if (key.startsWith('motionintheclip')) {
-        let tempKey = key.split(';')
-        if (obj[tempKey[0]]) {
-          obj[tempKey[0]] += ', ' + tempKey[1]
-        } else {
-          obj[tempKey[0]] = tempKey[1]
-        }
-      } else if (key.startsWith('cameradirection')) {
-        let tempKey = key.split(';')
-        if (obj[tempKey[0]]) {
-          obj[tempKey[0]] += ', ' + tempKey[1]
-        } else {
-          obj[tempKey[0]] = tempKey[1]
-        }
-      } else if (key.startsWith('weather')) {
-        let tempKey = key.split(';')
-        if (obj[tempKey[0]]) {
-          obj[tempKey[0]] += ', ' + tempKey[1]
-        } else {
-          obj[tempKey[0]] = tempKey[1]
-        }
-      } else if (key.startsWith('additionalfiles')) {
-        let tempKey = key.split(';')
-        if (obj[tempKey[0]]) {
-          obj[tempKey[0]] += ', ' + tempKey[1]
-        } else {
-          obj[tempKey[0]] = tempKey[1]
-        }
-      } else {
-        obj[key] = t[key]
-      }
-    })
-    this.props.saveFormData(obj)
+    let obj = getFormObject(props.toJS())
+    if (validateFields(obj)) {
+      this.props.setErrorMessage('Please, fill out all mandatory fields')
+    } else {
+      this.props.saveFormData(obj)
+    }
   }
 
   render () {
-    const {loading, formData} = this.props.jotForm
+    const {loading, formData, message, errorMessage} = this.props.jotForm
     let data = formData ? formData.formData : null
+
+    debugger;
     return (
       <div>
         <Helmet
@@ -153,7 +73,6 @@ export class Form extends React.PureComponent { // eslint-disable-line react/pre
           />
           <Row className="layout-img-container">
           </Row>
-          <Button color="link"><Link to={'/video-submission-form/'}>Back to list</Link></Button>
           <Container className="jotform-container">
             <h2 className="headline">Heading Video Clip Submission Structure & Form</h2>
             <Row className="jotform-row" style={{margin: '0 auto'}}>
@@ -171,7 +90,9 @@ export class Form extends React.PureComponent { // eslint-disable-line react/pre
                 <JotFormComponent initialValues={data}
                                   generatePdf={(props) => this.generatePdf(props)}
                                   onSubmit={(props) => this.onSubmit(props)}/>
-
+                {message ? <FormFeedback style={{color: '#5cb85c', marginTop: '1rem'}}>{message}</FormFeedback> : null}
+                {errorMessage ?
+                  <FormFeedback style={{color: '#d9534f', marginTop: '1rem'}}>{errorMessage}</FormFeedback> : null}
               </Col>
             </Row>
           </Container>
@@ -182,18 +103,22 @@ export class Form extends React.PureComponent { // eslint-disable-line react/pre
   }
 }
 
-Form.propTypes = {
+Form
+  .propTypes = {
   dispatch: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = createStructuredSelector({
-  jotForm: makeSelectForm(),
-})
+const
+  mapStateToProps = createStructuredSelector({
+    jotForm: makeSelectForm(),
+  })
 
-const mapDispatchToProps = {
-  getFormData,
-  saveFormData,
-  createPdf,
-}
+const
+  mapDispatchToProps = {
+    getFormData,
+    saveFormData,
+    createPdf,
+    setErrorMessage,
+  }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form)

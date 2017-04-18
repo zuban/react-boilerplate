@@ -5,7 +5,7 @@ export const download = (url, obj) => {
   let form = document.createElement('form')
   form.method = 'POST'
   form.setAttribute('style', 'display: none')
-  form.action = url;
+  form.action = url
   Object.keys(obj).forEach(key => {
     let element = document.createElement('input')
     element.value = obj[key]
@@ -14,6 +14,4 @@ export const download = (url, obj) => {
   })
   document.body.appendChild(form)
   form.submit()
-
-
 }

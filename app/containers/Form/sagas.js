@@ -101,15 +101,15 @@ function* saveFormData (action) {
   let state = yield select(makeSelectForm())
   debugger
   try {
-    let data = state.formData
+    let data =  Object.assign({}, state.formData)
     data.formData = action.data
     let payload = yield call(service.saveFormById.bind(service),
       data
     )
     yield put({
       type: ADD_NOTIFICATION, notification: {
-        header: 'Form saving',
-        message: 'Success'
+        header: 'Form successfully saved',
+        message: ''
       }
     })
     yield put({

@@ -18,12 +18,19 @@
 import {
   SET_AUTHENTICATED,
   SET_LOGOUT,
-  REMOVE_NOTIFICATION
+  REMOVE_NOTIFICATION,
+  ADD_NOTIFICATION
 } from './constants'
 
 export function setAuthenticated () {
   return {
     type: SET_AUTHENTICATED,
+  }
+}
+export function showNotification ({header, message}) {
+  return {
+    type: ADD_NOTIFICATION,
+    notification: {header, message}
   }
 }
 
