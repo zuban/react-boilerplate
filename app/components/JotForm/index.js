@@ -218,6 +218,7 @@ let JotForm = (props) => {
               <option value="23.976"> 23.976</option>
               <option value="24"> 24</option>
               <option value="25"> 25</option>
+              <option value="29.97"> 29.97</option>
               <option value="30"> 30</option>
               <option value="48"> 48</option>
               <option value="50"> 50</option>
@@ -255,6 +256,7 @@ let JotForm = (props) => {
               <option value="10mm"> 10mm</option>
               <option value="12mm"> 12mm</option>
               <option value="14mm"> 14mm</option>
+              <option value="15mm"> 15mm</option>
               <option value="18mm"> 18mm</option>
               <option value="20mm"> 20mm</option>
               <option value="22mm"> 22mm</option>
@@ -307,7 +309,7 @@ let JotForm = (props) => {
               <option value="GoPro 2K ; 04.57x03.43mm"> GoPro 2K ; 04.57x03.43mm</option>
               <option value="CMOS 1/2.3&quot;: 6.17 x 4.55mm"> CMOS 1/2.3": 6.17 x 4.55mm</option>
               <option value="CMOS 1&quot;: 13.2 x 8.8mm"> CMOS 1": 13.2 x 8.8mm</option>
-              <option value="Micro 4/3 ; 17.30x13.00mm  "> Micro 4/3 ; 17.30x13.00mm</option>
+              <option value="Micro 4/3 ; 17.30x13.00mm"> Micro 4/3 ; 17.30x13.00mm</option>
               <option value="Foveon ; 20.70x13.80mm"> Foveon ; 20.70x13.80mm</option>
               <option value="APS-C Canon ; 22.20x14.80mm"> APS-C Canon ; 22.20x14.80mm</option>
               <option value="APS-C ; 23.60x15.70mm"> APS-C ; 23.60x15.70mm</option>
@@ -319,7 +321,7 @@ let JotForm = (props) => {
               <option value="Arri Amira ; 28.17x18.13mm"> Arri Amira ; 28.17x18.13mm</option>
               <option value="Canon C100/C200/C300 ; 24.60x 13.80mm"> Canon C100/C200/C300 ; 24.60x 13.80mm</option>
               <option value="Canon C500 ; 26.21x13.82mm"> Canon C500 ; 26.21x13.82mm</option>
-              <option value="RED 4K - Any ; 20.47x10.79mm "> RED 4K - Any ; 20.47x10.79mm</option>
+              <option value="RED 4K - Any ; 20.47x10.79mm"> RED 4K - Any ; 20.47x10.79mm</option>
               <option value="RED 5K - Any ; 25.58x13.49mm"> RED 5K - Any ; 25.58x13.49mm</option>
               <option value="RED 6K - Any ; 30.70x15.80mm"> RED 6K - Any ; 30.70x15.80mm</option>
               <option value="RED 8K - Weapon ; 40.96x21.6mm"> RED 8K - Weapon ; 40.96x21.6mm</option>
@@ -386,7 +388,7 @@ let JotForm = (props) => {
               <option value="MPEG4"> MPEG4</option>
               <option value="QuickTime ProRes 422"> QuickTime ProRes 422</option>
               <option value="QuickTime ProRes 422HQ"> QuickTime ProRes 422HQ</option>
-              <option value="QuickTIme ProRes 444"> QuickTIme ProRes 444</option>
+              <option value="QuickTIme ProRes 4444"> QuickTIme ProRes 4444</option>
             </Field>
             <FormText color="muted">
               The original recording codec if differs from the delivered format "ProRes 422 (HQ)". And if original
@@ -404,11 +406,11 @@ let JotForm = (props) => {
                    className="form-control"
                    component='select'>
               <option value=""></option>
-              <option value="8K "> 8K</option>
+              <option value="8K"> 8K</option>
               <option value="6K"> 6K</option>
               <option value="5K"> 5K</option>
-              <option value="4K "> 4K</option>
-              <option value="4K UHD"> 4K UHD</option>
+              <option value="4K"> 4K DCI (4096x2160)</option>
+              <option value="4K UHD"> 4K UHD (3840x2160)</option>
               <option value="2K"> 2K</option>
               <option value="1080p FULL HD"> 1080p FULL HD</option>
               <option value="720p  HD"> 720p HD</option>
@@ -542,6 +544,13 @@ let JotForm = (props) => {
                 <Field name="motionintheclip;Motion timelapse" component="input" type="checkbox"
                        className="form-check-input"/>
                 Motion timelapse
+              </Label>
+            </FormGroup>
+            <FormGroup check>
+              <Label check>
+                <Field name="motionintheclip;Pan" component="input" type="checkbox"
+                       className="form-check-input"/>
+                Pan
               </Label>
             </FormGroup>
           </Col>
